@@ -37,7 +37,7 @@ module Views =
         ]
 
     let partial () =
-        h1 [] [ encodedText "ReloadSample" ]
+        h1 [] [ encodedText "ReloadSample with changes" ]
 
     let index (model : Message) =
         [

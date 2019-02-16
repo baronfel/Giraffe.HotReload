@@ -1,6 +1,18 @@
 # Giraffe.HotReload
 
-[Enter useful description for Giraffe.HotReload]
+A repo to explore using [FSharp.Compiler.Portacode](https://github.com/fsprojects/FSharp.Compiler.PortaCode) for hot-reloading Giraffe Views
+
+To test the current set up:
+
+* `cd` to the `samples/ReloadSample` directory
+* run the `Giraffe.HotReload.Cli` project from that working directory to generate the project options
+  * `dotnet run --project ../../src/Giraffe.HotReload.Cli/Giraffe.HotReload.Cli.fsproj -- --eval @out.args`
+  * you may need to ensure that file exists first
+* run the `Giraffe.HotReload.Cli` project from that working directory in watch mode
+  * `dotnet run --project ../../src/Giraffe.HotReload.Cli/Giraffe.HotReload.Cli.fsproj -- --watch --webhook:http://localhost:5000/update @out.args`
+* run the `ReloadSample` project
+  * `dotnet run`
+* make changes to the `ReloadSample` project
 
 ---
 

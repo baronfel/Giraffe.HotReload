@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <DefineConstants>$(DefineConstants);NETSTANDARD2_0</DefineConstants> <!-- need this to make dotnet.projinfo 0.9 compile with result-types correctly. -->
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <PackAsTool>true</PackAsTool>
+    <ToolCommandName>giraffe-reload</ToolCommandName>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="..\..\paket-files\fsprojects\FSharp.Compiler.PortaCode\src\ProjectCracker.fs">
+      <Paket>True</Paket>
+      <Link>Portacode/ProjectCracker.fs</Link>
+    </Compile>
+    <Compile Include="..\..\paket-files\fsprojects\FSharp.Compiler.PortaCode\src\CodeModel.fs">
+      <Paket>True</Paket>
+      <Link>Portacode/CodeModel.fs</Link>
+    </Compile>
+    <Compile Include="..\..\paket-files\fsprojects\FSharp.Compiler.PortaCode\src\Interpreter.fs">
+      <Paket>True</Paket>
+      <Link>Portacode/Interpreter.fs</Link>
+    </Compile>
+    <Compile Include="..\..\paket-files\fsprojects\FSharp.Compiler.PortaCode\src\FromCompilerService.fs">
+      <Paket>True</Paket>
+      <Link>Portacode/FromCompilerService.fs</Link>
+    </Compile>
+    <Compile Include="..\..\paket-files\fsprojects\FSharp.Compiler.PortaCode\src\ProcessCommandLine.fs">
+      <Paket>True</Paket>
+      <Link>Portacode/ProcessCommandLine.fs</Link>
+    </Compile>
+    <Compile Include="Program.fs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="paket.references" />
+  </ItemGroup>
+  <Import Project="..\..\.paket\Paket.Restore.targets" />
+</Project>
