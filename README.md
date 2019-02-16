@@ -14,6 +14,29 @@ To test the current set up:
   * `dotnet run`
 * make changes to the `ReloadSample` project
 
+#### Enabling auto-refresh of your page
+
+The new middleware exposes a websocket-friendly connection at `localhost:5000/ws`, and if you include a simple script like in your root page template every page in your app will support hot-refresh.
+The important part is the `onmessage` handler, where the page is refreshed when a message is sent.
+
+```js
+var socket = new WebSocket('ws://localhost:5000/ws');
+socket.onopen = function(event) {
+  console.log('Connection opened');
+}
+socket.onmessage = function(event) {
+  console.log(event.data);
+  window.location.reload();
+  return false;
+}
+socket.onclose = function(event) {
+  console.log("connection closed");
+}
+socket.onerror = function(error) {
+  console.log("error", error);
+}
+``` 
+
 ---
 
 ## Builds
