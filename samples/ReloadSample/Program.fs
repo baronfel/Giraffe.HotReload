@@ -8,6 +8,7 @@ open Microsoft.Extensions.Logging
 open Microsoft.Extensions.DependencyInjection
 open Giraffe
 open Giraffe.HotReload
+open Microsoft.Extensions.Hosting
 
 // ---------------------------------
 // Models
@@ -76,11 +77,11 @@ let indexHandler (name : string) =
     let view      = Views.index model
     htmlView view
 
-let webApp: HttpHandler =
+let webApp (env: IHostingEnvironment): HttpHandler =
     choose [
         GET >=>
             choose [
-                route "/" >=> indexHandler "world"
+                route "/" >=> indexHandler env.EnvironmentName
                 routef "/hello/%s" indexHandler
             ]
         setStatusCode 404 >=> text "Not Found" ]
@@ -104,7 +105,7 @@ let configureApp (app : IApplicationBuilder) =
     | true  -> app.UseDeveloperExceptionPage()
     | false -> app.UseGiraffeErrorHandler errorHandler)
 #if DEBUG
-        .UseGiraffeWithHotReload(webApp)
+        .UseGiraffeWithHotReload(webApp env)
 #else
         .UseGiraffe(webApp)
 #endif

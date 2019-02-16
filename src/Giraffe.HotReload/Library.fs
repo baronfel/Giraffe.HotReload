@@ -1,6 +1,7 @@
 namespace Giraffe.HotReload
 
 module rec LiveUpdate =
+  open System.Reflection
   open System
   open Giraffe
   open GiraffeViewEngine
@@ -24,7 +25,8 @@ module rec LiveUpdate =
   let rec tryFindMemberByName name (decls: DDecl[]) =
     decls |> Array.tryPick (function
         | DDeclEntity (_, ds) -> tryFindMemberByName name ds
-        | DDeclMember (membDef, body) -> if membDef.Name = name then Some (membDef, body) else None
+        | DDeclMember (membDef, body) ->
+          if membDef.Name = name then Some (membDef, body) else None
         | _ -> None)
 
 
@@ -38,18 +40,60 @@ module rec LiveUpdate =
 
     let tryFindWebApp (files: DFile []) = files |> Array.choose tryFindWebAppInFile |> Array.tryHead
 
-    let tryEvalMember (def: DMemberDef, bodyExpr: DExpr) =
-      let entity = interpreter.ResolveEntity(def.EnclosingEntity)
-      let memberRef = interpreter.GetExprDeclResult(entity, def.Name)
+    let tryGetAsValue (parent: ResolvedEntity) (def: DMemberDef) =
+      try
+        let memberRef = interpreter.GetExprDeclResult(parent, def.Name)
 
-      match getVal memberRef with
-      | :? HttpHandler as handler ->
-        logger.LogInformation("updating Giraffe handler with new member {mamberName} from {enclosingType}", def.Name, (def.EnclosingEntity.GetType().FullName))
-        middleware.Update handler
-        Ok "The handler has been changed"
-      | other ->
-        logger.LogWarning("The handler was of the wrong type. Expected an `HttpHandler` but got an {finalType}", (sprintf "%A" (other.GetType())))
-        Error (sprintf "The handler was of the wrong type. Expected an `HttpHandler` but got an `%A`" (other.GetType()))
+        match getVal memberRef with
+        | :? HttpHandler as handler -> Ok handler
+        | _ -> Error "Not an httphandler"
+      with
+      | e -> Error "couldn't resolve the name as a value"
+
+    let tryGetAsFunction (parent: ResolvedEntity) (def: DMemberDef) =
+      match interpreter.EvalMethodLambda(emptyEnv, false, def.GenericParameters, def.Parameters, def) with
+      | MethodLambdaValue.MethodLambdaValue (f) -> ()
+      match interpreter.ResolveMethod(def.Ref) with
+      | RMethod minfo ->
+        let meth = minfo :?> MethodInfo
+        let methodParams = meth.GetParameters() |> Array.map (fun p -> p.ParameterType)
+        Ok (meth, methodParams)
+      | UMember (Value v) ->
+        match v with
+        | :? MethodLambdaValue as l ->
+
+          let parameters = types |> Array.map (fun t -> ctx.RequestServices.GetService(t))
+
+        | other ->
+          Error (sprintf "Got a value of type %A" (v.GetType()))
+      | a -> Error (sprintf "Not a method info, instead was a %A" (a.GetType()))
+
+    let makeParametersAndInvokeMethod (paramTypes: Type []) (methodInfo: MethodInfo): HttpHandler =
+      let injectedParameters = paramTypes |> Array.map (fun t -> ctx.RequestServices.GetService(t))
+      methodInfo.Invoke(null, injectedParameters) :?> HttpHandler
+
+    let tryEvalMember (def: DMemberDef, bodyExpr: DExpr) =
+      let parent = interpreter.ResolveEntity(def.EnclosingEntity)
+
+      let handler =
+        match tryGetAsValue parent def with
+        | Ok handler -> Ok handler
+        | Error valueMessage ->
+          match tryGetAsFunction parent def with
+          | Ok (methodInfo, paramTypes) ->
+            Ok <| makeParametersAndInvokeMethod paramTypes methodInfo
+          | Error fnMessage ->
+            Error (valueMessage, fnMessage)
+
+      match handler with
+      | Ok handler ->
+          logger.LogInformation("updating Giraffe handler with new member {mamberName} from {enclosingType}", def.Name, (def.EnclosingEntity.GetType().FullName))
+          middleware.Update handler
+          Ok "The handler has been changed"
+      | Error (valueMessage, fnMessage) ->
+        logger.LogError(valueMessage)
+        logger.LogError(fnMessage)
+        Error (sprintf "%s\n%s" valueMessage fnMessage)
 
     let updateFiles (files: DFile[]) =
       lock interpreter (fun () ->
