@@ -1,2 +1,11 @@
 FSharp.Core
 SourceLink.Create.CommandLine
+Giraffe
+FSharp.Compiler.Service
+Dotnet.ProjInfo
+
+File: ProjectCracker.fs Portacode
+File: CodeModel.fs Portacode
+File: Interpreter.fs Portacode
+File: FromCompilerService.fs Portacode
+File: ProcessCommandLine.fs Portacode
