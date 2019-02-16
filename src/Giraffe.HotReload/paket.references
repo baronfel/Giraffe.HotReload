@@ -3,6 +3,7 @@ SourceLink.Create.CommandLine
 Giraffe
 FSharp.Compiler.Service
 Dotnet.ProjInfo
+Microsoft.AspNetCore.WebSockets
 
 File: ProjectCracker.fs Portacode
 File: CodeModel.fs Portacode

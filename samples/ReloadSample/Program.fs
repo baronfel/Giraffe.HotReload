@@ -25,6 +25,27 @@ type Message =
 module Views =
     open GiraffeViewEngine
 
+    let wsConnection =
+      script [] [
+        rawText """
+var socket = new WebSocket('ws://localhost:5000/ws');
+socket.onopen = function(event) {
+  console.log('Connection opened');
+}
+socket.onmessage = function(event) {
+  console.log(event.data);
+  window.location.reload();
+  return false;
+}
+socket.onclose = function(event) {
+  console.log("connection closed");
+}
+socket.onerror = function(error) {
+  console.log("error", error);
+}
+"""
+        ]
+
     let layout (content: XmlNode list) =
         html [] [
             head [] [
@@ -33,11 +54,11 @@ module Views =
                        _type "text/css"
                        _href "/main.css" ]
             ]
-            body [] content
+            body [] (content @ [wsConnection])
         ]
 
     let partial () =
-        h1 [] [ encodedText "ReloadSample with changes" ]
+        h1 [] [ encodedText "ReloadSample has changes!" ]
 
     let index (model : Message) =
         [

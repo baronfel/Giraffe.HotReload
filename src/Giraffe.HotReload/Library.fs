@@ -1,6 +1,7 @@
 namespace Giraffe.HotReload
 
 module rec LiveUpdate =
+  open System
   open Giraffe
   open GiraffeViewEngine
   open Microsoft.AspNetCore.Http
@@ -38,9 +39,6 @@ module rec LiveUpdate =
     let tryFindWebApp (files: DFile []) = files |> Array.choose tryFindWebAppInFile |> Array.tryHead
 
     let tryEvalMember (def: DMemberDef, bodyExpr: DExpr) =
-//      if not def.IsValueDef then Error "The `webApp` member must have no parameters and be a static value"
-//      else
-
       let entity = interpreter.ResolveEntity(def.EnclosingEntity)
       let memberRef = interpreter.GetExprDeclResult(entity, def.Name)
 
@@ -84,10 +82,12 @@ module rec LiveUpdate =
 
   /// A middleware that delegates to GiraffeMiddlware, but updates the middleware when the HttpHandler is updated
   type HotReloadGiraffeMiddleware(next: RequestDelegate,
-                                      handler: HttpHandler,
-                                      loggerFactory: ILoggerFactory) as self =
+                                  handler: HttpHandler,
+                                  sockets: ResizeArray<System.Net.WebSockets.WebSocket>,
+                                  loggerFactory: ILoggerFactory) as self =
+        let logger = loggerFactory.CreateLogger<HotReloadGiraffeMiddleware>()
         let merge handler = choose [LiveUpdate.updater self; handler ]
-
+        let refreshCommand = "refresh" |> System.Text.Encoding.UTF8.GetBytes |> ArraySegment
         let mutable innerMiddleware = Middleware.GiraffeMiddleware(next, merge handler, loggerFactory)
 
         member __.Invoke (ctx: HttpContext) = innerMiddleware.Invoke ctx
@@ -95,21 +95,72 @@ module rec LiveUpdate =
         /// Replace the current giraffe pipeline with a new one based on the provided `HttpHandler`
         member __.Update(newHandler) =
           innerMiddleware <- Middleware.GiraffeMiddleware(next, merge newHandler, loggerFactory)
+          sockets
+          |> Seq.mapi (fun i socket -> task {
+              logger.LogInformation("Notifying websocket {id}", i)
+              do! socket.SendAsync(refreshCommand, Net.WebSockets.WebSocketMessageType.Text, true, Threading.CancellationToken.None)
+            }
+          )
+          |> System.Threading.Tasks.Task.WhenAll
+          |> ignore
 
 
 [<AutoOpen>]
 module Extensions =
+  open System
   open Giraffe
   open Microsoft.Extensions.Logging
   open Microsoft.AspNetCore.Http
   open Microsoft.AspNetCore.Builder
+  open FSharp.Control.Tasks.V2.ContextInsensitive
+  open System.Threading.Tasks
 
   type IApplicationBuilder with
     member this.UseGiraffeWithHotReload(handler: HttpHandler) =
       let loggerFactory  = this.ApplicationServices.GetService(typeof<ILoggerFactory>) :?> ILoggerFactory
+      let logger = loggerFactory.CreateLogger("Giraffe.HotReload.Websockets")
+      // keep a list of websockets so that we can mutably append to it and share it with the middleware
+      let sockets = ResizeArray<_>()
 
-      let run = fun (next: RequestDelegate) ->
-        let mw = LiveUpdate.HotReloadGiraffeMiddleware(next, handler, loggerFactory)
-        let del = RequestDelegate (fun ctx ->  mw.Invoke(ctx) :> _)
-        del
-      this.Use run
+      let rec listenToSocket (socket: System.Net.WebSockets.WebSocket) = async {
+        let buffer = ArraySegment<byte>(Array.zeroCreate 4086)
+        try
+          let! ct = Async.CancellationToken
+          let! result = socket.ReceiveAsync(buffer, ct) |> Async.AwaitTask
+          if result.MessageType = Net.WebSockets.WebSocketMessageType.Close
+          then
+            logger.LogInformation("Websocket closing")
+            sockets.Remove socket |> ignore
+          else
+            logger.LogInformation("Websocket message: {message}", System.Text.Encoding.UTF8.GetString buffer.Array)
+            return! listenToSocket socket
+        with
+        | e ->
+          logger.LogError ("Websocket Error: {error}", e)
+          sockets.Remove socket |> ignore
+      }
+
+      let registerSocket (ctx: HttpContext) (next: System.Func<Task>) =
+        task {
+          if ctx.Request.Path = PathString.op_Implicit"/ws" then
+            if ctx.WebSockets.IsWebSocketRequest
+            then
+              let! socket = ctx.WebSockets.AcceptWebSocketAsync()
+              sockets.Add socket
+              do! listenToSocket socket
+            else
+              ctx.Response.StatusCode <- 400
+              return ()
+
+          do! next.Invoke()
+
+
+        } :> Task
+
+      // add in websocket support so that we can send a 'refresh' ping
+      this.UseWebSockets() |> ignore
+      // accept websockets and register them
+      this.Use(System.Func<_, _, _> registerSocket) |> ignore
+      // invoke our liveupdate middleware
+      this.UseMiddleware<LiveUpdate.HotReloadGiraffeMiddleware>(handler, sockets) |> ignore
+

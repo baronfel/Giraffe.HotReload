@@ -3,19 +3,20 @@ source https://www.nuget.org/api/v2
 source https://api.nuget.org/v3/index.json
 storage: none
 
-# portacode dependencies
-github fsprojects/FSharp.Compiler.PortaCode:master src/ProjectCracker.fs
-github fsprojects/FSharp.Compiler.PortaCode:master src/CodeModel.fs
-github fsprojects/FSharp.Compiler.PortaCode:master src/Interpreter.fs
-github fsprojects/FSharp.Compiler.PortaCode:master src/FromCompilerService.fs
-github fsprojects/FSharp.Compiler.PortaCode:master src/ProcessCommandLine.fs
+# portacode dependencies. pinned to the latest that fabulous uses because of API changes.
+# if you change this, you will likely need to update the Dotnet.ProjInfo dependency below.
+github fsprojects/FSharp.Compiler.PortaCode:a21e622bca42dd58e186c32f9be0505335f3c4a7 src/ProjectCracker.fs
+github fsprojects/FSharp.Compiler.PortaCode:a21e622bca42dd58e186c32f9be0505335f3c4a7 src/CodeModel.fs
+github fsprojects/FSharp.Compiler.PortaCode:a21e622bca42dd58e186c32f9be0505335f3c4a7 src/Interpreter.fs
+github fsprojects/FSharp.Compiler.PortaCode:a21e622bca42dd58e186c32f9be0505335f3c4a7 src/FromCompilerService.fs
+github fsprojects/FSharp.Compiler.PortaCode:a21e622bca42dd58e186c32f9be0505335f3c4a7 src/ProcessCommandLine.fs
 
 # app deps
 nuget Giraffe
 nuget FSharp.Core ~> 4.5
 nuget FSharp.Compiler.Service ~> 25.0
 nuget Dotnet.ProjInfo 0.9
-
+nuget Microsoft.AspNetCore.WebSockets
 
 # build and test deps
 clitool dotnet-mono 0.5.2
