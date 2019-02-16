@@ -55,7 +55,7 @@ let indexHandler (name : string) =
     let view      = Views.index model
     htmlView view
 
-let webApp =
+let webApp: HttpHandler =
     choose [
         GET >=>
             choose [
@@ -93,7 +93,7 @@ let configureServices (services : IServiceCollection) =
     services.AddGiraffe() |> ignore
 
 let configureLogging (builder : ILoggingBuilder) =
-    builder.AddFilter(fun l -> l.Equals LogLevel.Error)
+    builder
            .AddConsole()
            .AddDebug() |> ignore
 
