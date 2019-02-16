@@ -7,6 +7,7 @@ module rec LiveUpdate =
   open Microsoft.Extensions.Logging
   open FSharp.Compiler.PortaCode.CodeModel
   open FSharp.Compiler.PortaCode.Interpreter
+  open FSharp.Control.Tasks.V2.ContextInsensitive
 
   let welcomePage: XmlNode =
     html [ ] [
@@ -26,7 +27,8 @@ module rec LiveUpdate =
         | _ -> None)
 
 
-  let handleUpdate (middleware: HotReloadGiraffeMiddleware) : HttpHandler =
+  let handleUpdate (middleware: HotReloadGiraffeMiddleware) : HttpHandler = fun next ctx -> task {
+    let logger = ctx.GetLogger<HotReloadGiraffeMiddleware>()
     let error message = setStatusCode 400 >=> json { message = message }
     let interpreter = EvalContext(System.Reflection.Assembly.Load)
 
@@ -44,9 +46,11 @@ module rec LiveUpdate =
 
       match getVal memberRef with
       | :? HttpHandler as handler ->
+        logger.LogInformation("updating Giraffe handler with new member {mamberName} from {enclosingType}", def.Name, (def.EnclosingEntity.GetType().FullName))
         middleware.Update handler
         Ok "The handler has been changed"
       | other ->
+        logger.LogWarning("The handler was of the wrong type. Expected an `HttpHandler` but got an {finalType}", (sprintf "%A" (other.GetType())))
         Error (sprintf "The handler was of the wrong type. Expected an `HttpHandler` but got an `%A`" (other.GetType()))
 
     let updateFiles (files: DFile[]) =
@@ -55,7 +59,9 @@ module rec LiveUpdate =
         files |> Array.iter (fun file -> interpreter.EvalDecls (envEmpty, file.Code))
       )
       match files with
-      | [|  |] -> error "Must send some files"
+      | [|  |] ->
+        logger.LogError("No files found in request")
+        error "Must send some files"
       | files ->
         match tryFindWebApp files with
         | Some webAppMember ->
@@ -63,9 +69,12 @@ module rec LiveUpdate =
           | Ok result ->
             setStatusCode 200 >=> json { message = result }
           | Error errMsg -> error errMsg
-        | None -> error "Couldn't find a member called `webApp` with signature `Giraffe.HttpHandler`."
+        | None ->
+          logger.LogError("Couldn't find a member called `webApp` with signature `Giraffe.HttpHandler`")
+          error "Couldn't find a member called `webApp` with signature `Giraffe.HttpHandler`"
 
-    bindJson updateFiles
+    return! bindJson updateFiles next ctx
+  }
 
   let updater middleware: HttpHandler =
     route "/update" >=> choose [
