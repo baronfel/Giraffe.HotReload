@@ -16,6 +16,7 @@ nuget FSharp.Core ~> 4.5
 nuget FSharp.Compiler.Service ~> 25.0
 nuget Dotnet.ProjInfo 0.9
 
+
 # build and test deps
 clitool dotnet-mono 0.5.2
 clitool dotnet-sourcelink 2.8.1
@@ -27,6 +28,9 @@ nuget SourceLink.Create.CommandLine 2.8.1 copy_local: true
 nuget YoloDev.Expecto.TestSdk 0.7.0
 nuget Microsoft.NET.Test.Sdk 15.7.2
 nuget altcover 4.0.603
+nuget Microsoft.AspNetCore # we host webapps in test
+nuget Microsoft.AspNetCore.TestHost
+
 
 // [ FAKE GROUP ]
 group Build
