@@ -14,6 +14,15 @@ To test the current set up:
   * `dotnet run`
 * make changes to the `ReloadSample` project
 
+#### Triggering the auto-reload of your Giraffe app
+
+The code right now looks for a member named `webApp` whose signature is `HttpHandler`. If such a member is found, the reload will occur.
+If no member is found, there will be an error message written to the Asp.Net core log.
+
+Check the `samples/ReloadSample/Program.fs` file for an example.
+
+In the future I hope to expand the auto-refresh to include members named `webApp` that have more complex signatures, and use the dependency-injection features to fill in missing parameters.
+
 #### Enabling auto-refresh of your page
 
 The new middleware exposes a websocket-friendly connection at `localhost:5000/ws`, and if you include a simple script like in your root page template every page in your app will support hot-refresh.
