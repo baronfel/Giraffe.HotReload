@@ -147,8 +147,8 @@ Target.create "DotnetTest" <| fun ctx ->
                 [
                     "--no-build"
                     "/p:AltCover=true"
-                    sprintf "/p:AltCoverThreshold=%d" coverageThresholdPercent
-                    sprintf "/p:AltCoverAssemblyExcludeFilter=%s" (IO.Path.GetFileNameWithoutExtension(proj))
+//                    sprintf "/p:AltCoverThreshold=%d" coverageThresholdPercent
+//                    sprintf "/p:AltCoverAssemblyExcludeFilter=%s" (IO.Path.GetFileNameWithoutExtension(proj))
                 ] |> String.concat " "
             { c with
                 Configuration = configuration (ctx.Context.AllExecutingTargets)

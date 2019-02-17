@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html data-ng-app="coverageApp">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE,chrome=1" />
+<link href="data:image/png;base64,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" rel="icon" type="image/x-icon" />
+<title>Summary - Coverage Report</title>
+<link rel="stylesheet" type="text/css" href="report.css" />
+</head><body data-ng-controller="SummaryViewCtrl"><div class="container"><div class="containerleft">
+<h1>Summary</h1>
+<table class="overview table-fixed">
+<colgroup>
+<col class="column135" />
+<col />
+</colgroup>
+<tbody>
+<tr><th>Generated on:</th><td>2/17/19 - 12:44:19 PM</td></tr>
+<tr><th>Parser:</th><td>MultiReportParser (3x OpenCoverParser)</td></tr>
+<tr><th>Assemblies:</th><td>1</td></tr>
+<tr><th>Classes:</th><td>8</td></tr>
+<tr><th>Files:</th><td>6</td></tr>
+<tr><th>Covered lines:</th><td>33</td></tr>
+<tr><th>Uncovered lines:</th><td>1212</td></tr>
+<tr><th>Coverable lines:</th><td>1245</td></tr>
+<tr><th>Total lines:</th><td>2258</td></tr>
+<tr><th>Line coverage:</th><td>2.6%</td></tr>
+<tr><th>Branch coverage:</th><td>0%</td></tr>
+</tbody>
+</table>
+<h1>Risk Hotspots</h1>
+<div data-ng-if="riskHotspots.length > 0" data-reactive-risk-hotspot-table data-risk-hotspots="riskHotspots" data-risk-hotspot-metrics="riskHotspotMetrics"></div>
+<table data-ng-if="false" class="overview table-fixed stripped">
+<colgroup>
+<col />
+<col />
+<col />
+<col class="column105" />
+<col class="column105" />
+<col class="column105" />
+</colgroup>
+<thead><tr><th>Assembly</th>
+<th>Class</th>
+<th>Method</th>
+<th>Cyclomatic complexity <a href="https://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon-info-circled"></i></a></th>
+<th>NPath complexity <a href="https://modess.io/npath-complexity-cyclomatic-complexity-explained"><i class="icon-info-circled"></i></a></th>
+<th>Crap Score <a href="https://googletesting.blogspot.de/2011/02/this-code-is-crap.html"><i class="icon-info-circled"></i></a></th>
+</tr></thead>
+<tbody>
+<tr>
+<td>Giraffe.HotReload</td>
+<td><a href="Giraffe.HotReload_FromCompilerService.htm">FSharp.Compiler.PortaCode.FromCompilerService</a></td>
+<td title="FSharp.Compiler.PortaCode.CodeModel/DExpr FSharp.Compiler.PortaCode.FromCompilerService::convExpr(Microsoft.FSharp.Compiler.SourceCodeServices.FSharpExpr)"><a href="Giraffe.HotReload_FromCompilerService.htm#file0_line17">convExpr(...)</a></td><td class="lightred right">61</td>
+<td class="lightred right">2147483647</td>
+<td class="lightgreen right">0</td>
+</tr>
+<tr>
+<td>Giraffe.HotReload</td>
+<td><a href="Giraffe.HotReload_Interpreter.htm">FSharp.Compiler.PortaCode.Interpreter</a></td>
+<td title="FSharp.Compiler.PortaCode.Interpreter/ResolvedMember FSharp.Compiler.PortaCode.Interpreter/EvalContext::MakeRMethod(System.Reflection.MethodInfo)"><a href="Giraffe.HotReload_Interpreter.htm#file0_line340">MakeRMethod(...)</a></td><td class="lightred right">41</td>
+<td class="lightred right">2147483647</td>
+<td class="lightgreen right">0</td>
+</tr>
+<tr>
+<td>Giraffe.HotReload</td>
+<td><a href="Giraffe.HotReload_Interpreter.htm">FSharp.Compiler.PortaCode.Interpreter</a></td>
+<td title="FSharp.Compiler.PortaCode.Interpreter/Value FSharp.Compiler.PortaCode.Interpreter/EvalContext::EvalExpr(FSharp.Compiler.PortaCode.Interpreter/Env,FSharp.Compiler.PortaCode.CodeModel/DExpr)"><a href="Giraffe.HotReload_Interpreter.htm#file0_line475">EvalExpr(...)</a></td><td class="lightred right">73</td>
+<td class="lightred right">2147483647</td>
+<td class="lightgreen right">0</td>
+</tr>
+<tr>
+<td>Giraffe.HotReload</td>
+<td><a href="Giraffe.HotReload_Interpreter.htm">FSharp.Compiler.PortaCode.Interpreter</a></td>
+<td title="FSharp.Compiler.PortaCode.Interpreter/Value FSharp.Compiler.PortaCode.Interpreter/EvalContext::EvalCall(FSharp.Compiler.PortaCode.Interpreter/Env,Microsoft.FSharp.Core.FSharpOption`1&lt;FSharp.Compiler.PortaCode.CodeModel/DExpr&gt;,FSharp.Compiler.PortaCode.CodeModel/DMemberRef,FSharp.Compiler.PortaCode.CodeModel/DType[],FSharp.Compiler.PortaCode.CodeModel/DType[],FSharp.Compiler.PortaCode.CodeModel/DExpr[])"><a href="Giraffe.HotReload_Interpreter.htm#file0_line676">EvalCall(...)</a></td><td class="lightred right">261</td>
+<td class="lightred right">7311360</td>
+<td class="lightgreen right">0</td>
+</tr>
+<tr>
+<td>Giraffe.HotReload</td>
+<td><a href="Giraffe.HotReload_ProjectCracker.htm">FSharpDaemon.ProjectCracker</a></td>
+<td title="System.Tuple`3&lt;System.String,Microsoft.FSharp.Compiler.SourceCodeServices.FSharpProjectOptions,Microsoft.FSharp.Collections.FSharpList`1&lt;System.Tuple`2&lt;System.String,System.String&gt;&gt;&gt; FSharpDaemon.ProjectCracker/projInfoOf@237::Invoke(Microsoft.FSharp.Collections.FSharpList`1&lt;System.Tuple`2&lt;System.String,System.String&gt;&gt;,System.String)"><a href="Giraffe.HotReload_ProjectCracker.htm#file0_line237">Invoke(...)</a></td><td class="lightgreen right">30</td>
+<td class="lightred right">2949120</td>
+<td class="lightgreen right">0</td>
+</tr>
+<tr>
+<td>Giraffe.HotReload</td>
+<td><a href="Giraffe.HotReload_ProcessCommandLine.htm">FSharp.Compiler.PortaCode.ProcessCommandLine</a></td>
+<td title="System.Int32 FSharp.Compiler.PortaCode.ProcessCommandLine::ProcessCommandLine(System.String[])"><a href="Giraffe.HotReload_ProcessCommandLine.htm#file0_line20">ProcessCommandLine(...)</a></td><td class="lightgreen right">21</td>
+<td class="lightred right">262144</td>
+<td class="lightgreen right">0</td>
+</tr>
+<tr>
+<td>Giraffe.HotReload</td>
+<td><a href="Giraffe.HotReload_Interpreter.htm">FSharp.Compiler.PortaCode.Interpreter</a></td>
+<td title="FSharp.Compiler.PortaCode.Interpreter/Value FSharp.Compiler.PortaCode.Interpreter::binOp(System.Object[],Microsoft.FSharp.Core.FSharpFunc`2&lt;System.SByte,Microsoft.FSharp.Core.FSharpFunc`2&lt;System.SByte,a&gt;&gt;,Microsoft.FSharp.Core.FSharpFunc`2&lt;System.Int16,Microsoft.FSharp.Core.FSharpFunc`2&lt;System.Int16,b&gt;&gt;,Microsoft.FSharp.Core.FSharpFunc`2&lt;System.Int32,Microsoft.FSharp.Core.FSharpFunc`2&lt;System.Int32,c&gt;&gt;,Microsoft.FSharp.Core.FSharpFunc`2&lt;System.Int64,Microsoft.FSharp.Core.FSharpFunc`2&lt;System.Int64,d&gt;&gt;,Microsoft.FSharp.Core.FSharpFunc`2&lt;System.Byte,Microsoft.FSharp.Core.FSharpFunc`2&lt;System.Byte,e&gt;&gt;,Microsoft.FSharp.Core.FSharpFunc`2&lt;System.UInt16,Microsoft.FSharp.Core.FSharpFunc`2&lt;System.UInt16,f&gt;&gt;,Microsoft.FSharp.Core.FSharpFunc`2&lt;System.UInt32,Microsoft.FSharp.Core.FSharpFunc`2&lt;System.UInt32,g&gt;&gt;,Microsoft.FSharp.Core.FSharpFunc`2&lt;System.UInt64,Microsoft.FSharp.Core.FSharpFunc`2&lt;System.UInt64,h&gt;&gt;,Microsoft.FSharp.Core.FSharpFunc`2&lt;System.Single,Microsoft.FSharp.Core.FSharpFunc`2&lt;System.Single,i&gt;&gt;,Microsoft.FSharp.Core.FSharpFunc`2&lt;System.Double,Microsoft.FSharp.Core.FSharpFunc`2&lt;System.Double,j&gt;&gt;,Microsoft.FSharp.Core.FSharpFunc`2&lt;System.Decimal,Microsoft.FSharp.Core.FSharpFunc`2&lt;System.Decimal,k&gt;&gt;)"><a href="Giraffe.HotReload_Interpreter.htm#file0_line108">binOp(...)</a></td><td class="lightgreen right">23</td>
+<td class="lightred right">40960</td>
+<td class="lightgreen right">0</td>
+</tr>
+<tr>
+<td>Giraffe.HotReload</td>
+<td><a href="Giraffe.HotReload_Interpreter.htm">FSharp.Compiler.PortaCode.Interpreter</a></td>
+<td title="FSharp.Compiler.PortaCode.Interpreter/Value FSharp.Compiler.PortaCode.Interpreter::shiftOp(System.Object[],Microsoft.FSharp.Core.FSharpFunc`2&lt;System.SByte,Microsoft.FSharp.Core.FSharpFunc`2&lt;System.Int32,a&gt;&gt;,Microsoft.FSharp.Core.FSharpFunc`2&lt;System.Int16,Microsoft.FSharp.Core.FSharpFunc`2&lt;System.Int32,b&gt;&gt;,Microsoft.FSharp.Core.FSharpFunc`2&lt;System.Int32,Microsoft.FSharp.Core.FSharpFunc`2&lt;System.Int32,c&gt;&gt;,Microsoft.FSharp.Core.FSharpFunc`2&lt;System.Int64,Microsoft.FSharp.Core.FSharpFunc`2&lt;System.Int32,d&gt;&gt;,Microsoft.FSharp.Core.FSharpFunc`2&lt;System.Byte,Microsoft.FSharp.Core.FSharpFunc`2&lt;System.Int32,e&gt;&gt;,Microsoft.FSharp.Core.FSharpFunc`2&lt;System.UInt16,Microsoft.FSharp.Core.FSharpFunc`2&lt;System.Int32,f&gt;&gt;,Microsoft.FSharp.Core.FSharpFunc`2&lt;System.UInt32,Microsoft.FSharp.Core.FSharpFunc`2&lt;System.Int32,g&gt;&gt;,Microsoft.FSharp.Core.FSharpFunc`2&lt;System.UInt64,Microsoft.FSharp.Core.FSharpFunc`2&lt;System.Int32,h&gt;&gt;)"><a href="Giraffe.HotReload_Interpreter.htm#file0_line123">shiftOp(...)</a></td><td class="lightgreen right">17</td>
+<td class="lightred right">3584</td>
+<td class="lightgreen right">0</td>
+</tr>
+<tr>
+<td>Giraffe.HotReload</td>
+<td><a href="Giraffe.HotReload_Interpreter.htm">FSharp.Compiler.PortaCode.Interpreter</a></td>
+<td title="FSharp.Compiler.PortaCode.Interpreter/Value FSharp.Compiler.PortaCode.Interpreter::logicBinOp(System.Object[],Microsoft.FSharp.Core.FSharpFunc`2&lt;System.SByte,Microsoft.FSharp.Core.FSharpFunc`2&lt;System.SByte,a&gt;&gt;,Microsoft.FSharp.Core.FSharpFunc`2&lt;System.Int16,Microsoft.FSharp.Core.FSharpFunc`2&lt;System.Int16,b&gt;&gt;,Microsoft.FSharp.Core.FSharpFunc`2&lt;System.Int32,Microsoft.FSharp.Core.FSharpFunc`2&lt;System.Int32,c&gt;&gt;,Microsoft.FSharp.Core.FSharpFunc`2&lt;System.Int64,Microsoft.FSharp.Core.FSharpFunc`2&lt;System.Int64,d&gt;&gt;,Microsoft.FSharp.Core.FSharpFunc`2&lt;System.Byte,Microsoft.FSharp.Core.FSharpFunc`2&lt;System.Byte,e&gt;&gt;,Microsoft.FSharp.Core.FSharpFunc`2&lt;System.UInt16,Microsoft.FSharp.Core.FSharpFunc`2&lt;System.UInt16,f&gt;&gt;,Microsoft.FSharp.Core.FSharpFunc`2&lt;System.UInt32,Microsoft.FSharp.Core.FSharpFunc`2&lt;System.UInt32,g&gt;&gt;,Microsoft.FSharp.Core.FSharpFunc`2&lt;System.UInt64,Microsoft.FSharp.Core.FSharpFunc`2&lt;System.UInt64,h&gt;&gt;)"><a href="Giraffe.HotReload_Interpreter.htm#file0_line135">logicBinOp(...)</a></td><td class="lightgreen right">17</td>
+<td class="lightred right">3584</td>
+<td class="lightgreen right">0</td>
+</tr>
+<tr>
+<td>Giraffe.HotReload</td>
+<td><a href="Giraffe.HotReload_Interpreter.htm">FSharp.Compiler.PortaCode.Interpreter</a></td>
+<td title="FSharp.Compiler.PortaCode.Interpreter/ResolvedType FSharp.Compiler.PortaCode.Interpreter/EvalContext::ResolveType(FSharp.Compiler.PortaCode.Interpreter/Env,FSharp.Compiler.PortaCode.CodeModel/DType)"><a href="Giraffe.HotReload_Interpreter.htm#file0_line258">ResolveType(...)</a></td><td class="lightgreen right">19</td>
+<td class="lightred right">2048</td>
+<td class="lightgreen right">0</td>
+</tr>
+<tr>
+<td>Giraffe.HotReload</td>
+<td><a href="Giraffe.HotReload_ProcessCommandLine.htm">FSharp.Compiler.PortaCode.ProcessCommandLine</a></td>
+<td title="System.Int32 FSharp.Compiler.PortaCode.ProcessCommandLine/args@28::GenerateNext(System.Collections.Generic.IEnumerable`1&lt;System.String&gt;&amp;)"><a href="Giraffe.HotReload_ProcessCommandLine.htm#file0_line28">GenerateNext(...)</a></td><td class="lightred right">35</td>
+<td class="lightred right">2048</td>
+<td class="lightgreen right">0</td>
+</tr>
+<tr>
+<td>Giraffe.HotReload</td>
+<td><a href="Giraffe.HotReload_Interpreter.htm">FSharp.Compiler.PortaCode.Interpreter</a></td>
+<td title="FSharp.Compiler.PortaCode.Interpreter/ResolvedMember FSharp.Compiler.PortaCode.Interpreter/EvalContext::ResolveMethod(FSharp.Compiler.PortaCode.CodeModel/DMemberRef)"><a href="Giraffe.HotReload_Interpreter.htm#file0_line390">ResolveMethod(...)</a></td><td class="lightgreen right">15</td>
+<td class="lightred right">256</td>
+<td class="lightgreen right">0</td>
+</tr>
+<tr>
+<td>Giraffe.HotReload</td>
+<td><a href="Giraffe.HotReload_Interpreter.htm">FSharp.Compiler.PortaCode.Interpreter</a></td>
+<td title="FSharp.Compiler.PortaCode.Interpreter/Value FSharp.Compiler.PortaCode.Interpreter/EvalContext::EvalApplicationOfArg(FSharp.Compiler.PortaCode.Interpreter/Env,FSharp.Compiler.PortaCode.Interpreter/Value,System.Object[])"><a href="Giraffe.HotReload_Interpreter.htm#file0_line642">EvalApplicationOfArg(...)</a></td><td class="lightgreen right">19</td>
+<td class="lightred right">256</td>
+<td class="lightgreen right">0</td>
+</tr>
+</tbody>
+</table>
+<h1>Coverage</h1>
+<div data-ng-if="coverageTableFilteringEnabled" data-reactive-coverage-table data-assemblies="assemblies" data-historic-coverage-execution-times="historicCoverageExecutionTimes" data-branch-coverage-available="branchCoverageAvailable"></div>
+<div data-ng-if="!coverageTableFilteringEnabled">
+<div class="ng-hide customizebox" data-ng-show="true"><input data-ng-click="enableCoverageTableFiltering()" value="Enable filtering" title="This may take some time since the report contains many classes." type="submit" /></div>
+</div>
+<table data-ng-if="!coverageTableFilteringEnabled" class="overview table-fixed stripped">
+<colgroup>
+<col />
+<col class="column90" />
+<col class="column105" />
+<col class="column100" />
+<col class="column70" />
+<col class="column60" />
+<col class="column112" />
+<col class="column60" />
+<col class="column112" />
+</colgroup>
+<thead><tr><th>Name</th><th class="right">Covered</th><th class="right">Uncovered</th><th class="right">Coverable</th><th class="right">Total</th><th class="center" colspan="2">Line coverage</th><th class="center" colspan="2">Branch coverage</th></tr></thead>
+<tbody>
+<tr><th>Giraffe.HotReload</th><th class="right">33</th><th class="right">1212</th><th class="right">1245</th><th class="right">2424</th><th title="LineCoverage" class="right">2.6%</th><th><table class="coverage"><tr><td class="green covered3">&nbsp;</td><td class="red covered97">&nbsp;</td></tr></table></th><th class="right">0%</th><th><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></th></tr>
+<tr><td><a href="Giraffe.HotReload_CodeModel.htm">FSharp.Compiler.PortaCode.CodeModel</a></td><td class="right">0</td><td class="right">1</td><td class="right">1</td><td class="right">80</td><td title="LineCoverage" class="right">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td><td class="right">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td></tr>
+<tr><td><a href="Giraffe.HotReload_FromCompilerService.htm">FSharp.Compiler.PortaCode.FromCompilerService</a></td><td class="right">0</td><td class="right">164</td><td class="right">164</td><td class="right">240</td><td title="LineCoverage" class="right">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td><td class="right">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td></tr>
+<tr><td><a href="Giraffe.HotReload_Interpreter.htm">FSharp.Compiler.PortaCode.Interpreter</a></td><td class="right">0</td><td class="right">619</td><td class="right">619</td><td class="right">1042</td><td title="LineCoverage" class="right">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td><td class="right">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td></tr>
+<tr><td><a href="Giraffe.HotReload_ProcessCommandLine.htm">FSharp.Compiler.PortaCode.ProcessCommandLine</a></td><td class="right">0</td><td class="right">159</td><td class="right">159</td><td class="right">250</td><td title="LineCoverage" class="right">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td><td class="right">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td></tr>
+<tr><td><a href="Giraffe.HotReload_ProjectCracker.htm">FSharpDaemon.ProjectCracker</a></td><td class="right">0</td><td class="right">212</td><td class="right">212</td><td class="right">480</td><td title="LineCoverage" class="right">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td><td class="right">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td></tr>
+<tr><td><a href="Giraffe.HotReload_Extensions.htm">Giraffe.HotReload.Extensions</a></td><td class="right">21</td><td class="right">16</td><td class="right">37</td><td class="right">166</td><td title="LineCoverage" class="right">56.7%</td><td><table class="coverage"><tr><td class="green covered57">&nbsp;</td><td class="red covered43">&nbsp;</td></tr></table></td><td class="right">16.6%</td><td><table class="coverage"><tr><td class="green covered17">&nbsp;</td><td class="red covered83">&nbsp;</td></tr></table></td></tr>
+<tr><td><a href="Giraffe.HotReload_LiveUpdate.htm">Giraffe.HotReload.LiveUpdate</a></td><td class="right">12</td><td class="right">41</td><td class="right">53</td><td class="right">166</td><td title="LineCoverage" class="right">22.6%</td><td><table class="coverage"><tr><td class="green covered23">&nbsp;</td><td class="red covered77">&nbsp;</td></tr></table></td><td class="right">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td></tr>
+<tr><td><a href="Giraffe.HotReload_AssemblyVersionInformation.htm">System.AssemblyVersionInformation</a></td><td class="right">0</td><td class="right">0</td><td class="right">0</td><td class="right">0</td><td title="MethodCoverage" class="right"></td><td><table class="coverage"><tr><td class="gray covered100">&nbsp;</td></tr></table></td><td class="right"></td><td><table class="coverage"><tr><td class="gray covered100">&nbsp;</td></tr></table></td></tr>
+</tbody>
+</table>
+<div class="footer">Generated by: ReportGenerator 4.0.0.0<br />2/17/19 - 12:44:19 PM<br /><a href="https://github.com/danielpalme/ReportGenerator">GitHub</a> | <a href="http://www.palmmedia.de">www.palmmedia.de</a></div></div></div>
+<script type="text/javascript" src="combined.js"></script>
+</body></html>
