@@ -2,17 +2,19 @@
 
 A repo to explore using [FSharp.Compiler.Portacode](https://github.com/fsprojects/FSharp.Compiler.PortaCode) for hot-reloading Giraffe Views
 
-To test the current set up:
 
-* `cd` to the `samples/ReloadSample` directory
-* run the `Giraffe.HotReload.Cli` project from that working directory to generate the project options
-  * `dotnet run --project ../../src/Giraffe.HotReload.Cli/Giraffe.HotReload.Cli.fsproj -- --eval @out.args`
-  * you may need to ensure that file exists first
-* run the `Giraffe.HotReload.Cli` project from that working directory in watch mode
-  * `dotnet run --project ../../src/Giraffe.HotReload.Cli/Giraffe.HotReload.Cli.fsproj -- --watch --webhook:http://localhost:5000/update @out.args`
-* run the `ReloadSample` project
-  * `dotnet run`
-* make changes to the `ReloadSample` project
+#### Enabling Hot-Reload in your project
+
+* Install the `giraffe-reload` global tool
+  * `dotnet new -i Giraffe.HotReload.Cli::*`
+* Invoke the `giraffe-reload` tool in watch-mode on your project
+  * `giraffe-reload --watch --webhook:http://localhost:5000/update path/to/project.fsproj`
+  * If your project runs on another IP or port, change it as appropriate.
+  * The `/update` route is hard-coded right now, but may be made configurable in the future
+  * You can run the tool from your project directory and it'll discover your fsproj as well.
+* Launch your project as usual, likely via `dotnet run`
+* Make edits to your giraffe handler
+
 
 #### Triggering the auto-reload of your Giraffe app
 
@@ -45,6 +47,22 @@ socket.onerror = function(error) {
   console.log("error", error);
 }
 ``` 
+
+---
+
+## Running locally from the repo
+
+To test the current set up:
+
+* `cd` to the `samples/ReloadSample` directory
+* run the `Giraffe.HotReload.Cli` project from that working directory to generate the project options
+  * `dotnet run --project ../../src/Giraffe.HotReload.Cli/Giraffe.HotReload.Cli.fsproj -- --eval @out.args`
+  * you may need to ensure that file exists first
+* run the `Giraffe.HotReload.Cli` project from that working directory in watch mode
+  * `dotnet run --project ../../src/Giraffe.HotReload.Cli/Giraffe.HotReload.Cli.fsproj -- --watch --webhook:http://localhost:5000/update @out.args`
+* run the `ReloadSample` project
+  * `dotnet run`
+* make changes to the `ReloadSample` project
 
 ---
 
