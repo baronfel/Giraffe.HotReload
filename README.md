@@ -6,7 +6,7 @@ A repo to explore using [FSharp.Compiler.Portacode](https://github.com/fsproject
 #### Enabling Hot-Reload in your project
 
 * Install the `giraffe-reload` global tool
-  * `dotnet new -i Giraffe.HotReload.Cli::*`
+  * `dotnet tool install -g Giraffe.HotReload.Cli::*`
 * Invoke the `giraffe-reload` tool in watch-mode on your project
   * `giraffe-reload --watch --webhook:http://localhost:5000/update path/to/project.fsproj`
   * If your project runs on another IP or port, change it as appropriate.
