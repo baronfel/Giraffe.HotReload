@@ -12,6 +12,8 @@ A repo to explore using [FSharp.Compiler.Portacode](https://github.com/fsproject
   * If your project runs on another IP or port, change it as appropriate.
   * The `/update` route is hard-coded right now, but may be made configurable in the future
   * You can run the tool from your project directory and it'll discover your fsproj as well.
+* open the `Giraffe.HotReload` namespace and use the new `UseGiraffeWithHotReload` extension method on `IApplicationBuilder`. You'll likely want to `#if`def this around the `DEBUG` define, so that you don't allow hot-reloading in production.
+* Use this extension method _instead_ of the normal `UseGiraffe` one. Check the sample project for an example usage.
 * Launch your project as usual, likely via `dotnet run`
 * Make edits to your giraffe handler
 
