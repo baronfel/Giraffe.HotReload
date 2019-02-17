@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PropertyGroup>
+  <PublishRepositoryUrl>true</PublishRepositoryUrl>
+  <EmbedUntrackedSources>true</EmbedUntrackedSources>
+  <IncludeSymbols>true</IncludeSymbols>
+  <DebugType>Embedded</DebugType>
+  <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>`
+</PropertyGroup>

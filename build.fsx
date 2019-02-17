@@ -83,9 +83,6 @@ module dotnet =
     let reportgenerator optionConfig args =
         tool optionConfig "reportgenerator" args
 
-    let sourcelink optionConfig args =
-        tool optionConfig "sourcelink" args
-
 
 
 Target.create "Clean" <| fun _ ->
@@ -261,13 +258,6 @@ Target.create "DotnetPack" <| fun ctx ->
     )
 
 
-Target.create "SourcelinkTest" <| fun _ ->
-    !! distGlob
-    |> Seq.iter (fun nupkg ->
-        dotnet.sourcelink id (sprintf "test %s" nupkg)
-    )
-
-
 let isReleaseBranchCheck () =
     let releaseBranch = "master"
     if Git.Information.getBranchName "" <> releaseBranch then failwithf "Not on %s.  If you want to release please switch to this branch." releaseBranch
@@ -333,7 +323,6 @@ Target.create "Release" ignore
   ==> "DotnetTest"
   ==> "GenerateCoverageReport"
   ==> "DotnetPack"
-  ==> "SourcelinkTest"
   ==> "Publish"
   ==> "GitRelease"
   ==> "GitHubRelease"

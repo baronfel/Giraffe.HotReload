@@ -2,6 +2,7 @@ FSharp.Core
 Newtonsoft.Json
 FSharp.Compiler.Service
 Dotnet.ProjInfo
+Microsoft.SourceLink.GitHub
 
 File: ProjectCracker.fs Portacode
 File: CodeModel.fs Portacode

@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{C397A34C-84F1-49E7-AEBC-2F9F2B196216}"
+ProjectSection(SolutionItems) = preProject
+	src\Directory.Build.props.xml = src\Directory.Build.props.xml
+EndProjectSection
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Giraffe.HotReload", "src\Giraffe.HotReload\Giraffe.HotReload.fsproj", "{5D30E174-2538-47AC-8443-318C8C5DC2C9}"
 EndProject
@@ -16,6 +19,11 @@ EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "ReloadSample", "samples\ReloadSample\ReloadSample.fsproj", "{69A2AE24-5374-44F7-9B17-93F5AA490A0C}"
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Giraffe.HotReload.Cli", "src\Giraffe.HotReload.Cli\Giraffe.HotReload.Cli.fsproj", "{B1F71037-2290-4BA6-A61F-A9C88BAEF821}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{8A61C76E-9C6C-4124-94FE-04A25F8D8AE5}"
+ProjectSection(SolutionItems) = preProject
+	tools\tools.csproj = tools\tools.csproj
+EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
