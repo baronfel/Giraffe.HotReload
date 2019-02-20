@@ -325,13 +325,13 @@ var assemblies = [
   {
     "name": "Giraffe.HotReload",
     "classes": [
-      { "name": "FSharp.Compiler.PortaCode.CodeModel", "reportPath": "Giraffe.HotReload_CodeModel.htm", "coveredLines": 0, "uncoveredLines": 1, "coverableLines": 1, "totalLines": 80, "coverageType": "LineCoverage", "methodCoverage": "-", "coveredBranches": 0, "totalBranches": 4, "lineCoverageHistory": [], "branchCoverageHistory": [], "historicCoverages": [] },
-      { "name": "FSharp.Compiler.PortaCode.FromCompilerService", "reportPath": "Giraffe.HotReload_FromCompilerService.htm", "coveredLines": 0, "uncoveredLines": 158, "coverableLines": 158, "totalLines": 240, "coverageType": "LineCoverage", "methodCoverage": "-", "coveredBranches": 0, "totalBranches": 220, "lineCoverageHistory": [], "branchCoverageHistory": [], "historicCoverages": [] },
-      { "name": "FSharp.Compiler.PortaCode.Interpreter", "reportPath": "Giraffe.HotReload_Interpreter.htm", "coveredLines": 0, "uncoveredLines": 502, "coverableLines": 502, "totalLines": 1042, "coverageType": "LineCoverage", "methodCoverage": "-", "coveredBranches": 0, "totalBranches": 511, "lineCoverageHistory": [], "branchCoverageHistory": [], "historicCoverages": [] },
-      { "name": "FSharp.Compiler.PortaCode.ProcessCommandLine", "reportPath": "Giraffe.HotReload_ProcessCommandLine.htm", "coveredLines": 0, "uncoveredLines": 152, "coverableLines": 152, "totalLines": 250, "coverageType": "LineCoverage", "methodCoverage": "-", "coveredBranches": 0, "totalBranches": 108, "lineCoverageHistory": [], "branchCoverageHistory": [], "historicCoverages": [] },
+      { "name": "FSharp.Compiler.PortaCode.CodeModel", "reportPath": "Giraffe.HotReload_CodeModel.htm", "coveredLines": 0, "uncoveredLines": 6, "coverableLines": 6, "totalLines": 135, "coverageType": "LineCoverage", "methodCoverage": "-", "coveredBranches": 0, "totalBranches": 4, "lineCoverageHistory": [], "branchCoverageHistory": [], "historicCoverages": [] },
+      { "name": "FSharp.Compiler.PortaCode.FromCompilerService", "reportPath": "Giraffe.HotReload_FromCompilerService.htm", "coveredLines": 0, "uncoveredLines": 33, "coverableLines": 33, "totalLines": 366, "coverageType": "LineCoverage", "methodCoverage": "-", "coveredBranches": 0, "totalBranches": 18, "lineCoverageHistory": [], "branchCoverageHistory": [], "historicCoverages": [] },
+      { "name": "FSharp.Compiler.PortaCode.Interpreter", "reportPath": "Giraffe.HotReload_Interpreter.htm", "coveredLines": 45, "uncoveredLines": 429, "coverableLines": 474, "totalLines": 1257, "coverageType": "LineCoverage", "methodCoverage": "-", "coveredBranches": 0, "totalBranches": 409, "lineCoverageHistory": [], "branchCoverageHistory": [], "historicCoverages": [] },
+      { "name": "FSharp.Compiler.PortaCode.ProcessCommandLine", "reportPath": "Giraffe.HotReload_ProcessCommandLine.htm", "coveredLines": 0, "uncoveredLines": 317, "coverableLines": 317, "totalLines": 469, "coverageType": "LineCoverage", "methodCoverage": "-", "coveredBranches": 0, "totalBranches": 194, "lineCoverageHistory": [], "branchCoverageHistory": [], "historicCoverages": [] },
       { "name": "FSharpDaemon.ProjectCracker", "reportPath": "Giraffe.HotReload_ProjectCracker.htm", "coveredLines": 0, "uncoveredLines": 155, "coverableLines": 155, "totalLines": 480, "coverageType": "LineCoverage", "methodCoverage": "-", "coveredBranches": 0, "totalBranches": 50, "lineCoverageHistory": [], "branchCoverageHistory": [], "historicCoverages": [] },
-      { "name": "Giraffe.HotReload.Extensions", "reportPath": "Giraffe.HotReload_Extensions.htm", "coveredLines": 21, "uncoveredLines": 11, "coverableLines": 32, "totalLines": 166, "coverageType": "LineCoverage", "methodCoverage": "-", "coveredBranches": 1, "totalBranches": 6, "lineCoverageHistory": [], "branchCoverageHistory": [], "historicCoverages": [] },
-      { "name": "Giraffe.HotReload.LiveUpdate", "reportPath": "Giraffe.HotReload_LiveUpdate.htm", "coveredLines": 9, "uncoveredLines": 36, "coverableLines": 45, "totalLines": 166, "coverageType": "LineCoverage", "methodCoverage": "-", "coveredBranches": 0, "totalBranches": 8, "lineCoverageHistory": [], "branchCoverageHistory": [], "historicCoverages": [] },
+      { "name": "Giraffe.HotReload.Extensions", "reportPath": "Giraffe.HotReload_Extensions.htm", "coveredLines": 21, "uncoveredLines": 11, "coverableLines": 32, "totalLines": 271, "coverageType": "LineCoverage", "methodCoverage": "-", "coveredBranches": 1, "totalBranches": 6, "lineCoverageHistory": [], "branchCoverageHistory": [], "historicCoverages": [] },
+      { "name": "Giraffe.HotReload.LiveUpdate", "reportPath": "Giraffe.HotReload_LiveUpdate.htm", "coveredLines": 10, "uncoveredLines": 109, "coverableLines": 119, "totalLines": 271, "coverageType": "LineCoverage", "methodCoverage": "-", "coveredBranches": 0, "totalBranches": 51, "lineCoverageHistory": [], "branchCoverageHistory": [], "historicCoverages": [] },
       { "name": "System.AssemblyVersionInformation", "reportPath": "Giraffe.HotReload_AssemblyVersionInformation.htm", "coveredLines": 0, "uncoveredLines": 0, "coverableLines": 0, "totalLines": 0, "coverageType": "MethodCoverage", "methodCoverage": "-", "coveredBranches": 0, "totalBranches": 0, "lineCoverageHistory": [], "branchCoverageHistory": [], "historicCoverages": [] },
     ]},
 ];
@@ -346,87 +346,66 @@ var riskHotspotMetrics = [
 
 var riskHotspots = [
   {
-    "assembly": "Giraffe.HotReload", "class": "FSharp.Compiler.PortaCode.FromCompilerService", "reportPath": "Giraffe.HotReload_FromCompilerService.htm", "methodName": "FSharp.Compiler.PortaCode.CodeModel/DExpr FSharp.Compiler.PortaCode.FromCompilerService::convExpr(Microsoft.FSharp.Compiler.SourceCodeServices.FSharpExpr)", "methodShortName": "convExpr(...)", "fileIndex": 0, "line": 18,
+    "assembly": "Giraffe.HotReload", "class": "FSharp.Compiler.PortaCode.ProcessCommandLine", "reportPath": "Giraffe.HotReload_ProcessCommandLine.htm", "methodName": "System.Int32 FSharp.Compiler.PortaCode.ProcessCommandLine/fsharpArgs@33::GenerateNext(System.Collections.Generic.IEnumerable`1<System.String>&)", "methodShortName": "GenerateNext(...)", "fileIndex": 0, "line": 33,
     "metrics": [
-      { "value": 61, "exceeded": true },
-      { "value": 2147483647, "exceeded": true },
+      { "value": 29, "exceeded": false },
+      { "value": 262144, "exceeded": true },
       { "value": 0, "exceeded": false },
     ]},
   {
-    "assembly": "Giraffe.HotReload", "class": "FSharp.Compiler.PortaCode.Interpreter", "reportPath": "Giraffe.HotReload_Interpreter.htm", "methodName": "FSharp.Compiler.PortaCode.Interpreter/ResolvedMember FSharp.Compiler.PortaCode.Interpreter/EvalContext::MakeRMethod(System.Reflection.MethodInfo)", "methodShortName": "MakeRMethod(...)", "fileIndex": 0, "line": 340,
+    "assembly": "Giraffe.HotReload", "class": "FSharp.Compiler.PortaCode.ProcessCommandLine", "reportPath": "Giraffe.HotReload_ProcessCommandLine.htm", "methodName": "System.Int32 FSharp.Compiler.PortaCode.ProcessCommandLine::ProcessCommandLine(System.String[])", "methodShortName": "ProcessCommandLine(...)", "fileIndex": 0, "line": 21,
     "metrics": [
-      { "value": 41, "exceeded": true },
-      { "value": 2147483647, "exceeded": true },
+      { "value": 20, "exceeded": false },
+      { "value": 131072, "exceeded": true },
       { "value": 0, "exceeded": false },
     ]},
   {
-    "assembly": "Giraffe.HotReload", "class": "FSharp.Compiler.PortaCode.Interpreter", "reportPath": "Giraffe.HotReload_Interpreter.htm", "methodName": "FSharp.Compiler.PortaCode.Interpreter/Value FSharp.Compiler.PortaCode.Interpreter::binOp(System.Object[],Microsoft.FSharp.Core.FSharpFunc`2<System.SByte,Microsoft.FSharp.Core.FSharpFunc`2<System.SByte,a>>,Microsoft.FSharp.Core.FSharpFunc`2<System.Int16,Microsoft.FSharp.Core.FSharpFunc`2<System.Int16,b>>,Microsoft.FSharp.Core.FSharpFunc`2<System.Int32,Microsoft.FSharp.Core.FSharpFunc`2<System.Int32,c>>,Microsoft.FSharp.Core.FSharpFunc`2<System.Int64,Microsoft.FSharp.Core.FSharpFunc`2<System.Int64,d>>,Microsoft.FSharp.Core.FSharpFunc`2<System.Byte,Microsoft.FSharp.Core.FSharpFunc`2<System.Byte,e>>,Microsoft.FSharp.Core.FSharpFunc`2<System.UInt16,Microsoft.FSharp.Core.FSharpFunc`2<System.UInt16,f>>,Microsoft.FSharp.Core.FSharpFunc`2<System.UInt32,Microsoft.FSharp.Core.FSharpFunc`2<System.UInt32,g>>,Microsoft.FSharp.Core.FSharpFunc`2<System.UInt64,Microsoft.FSharp.Core.FSharpFunc`2<System.UInt64,h>>,Microsoft.FSharp.Core.FSharpFunc`2<System.Single,Microsoft.FSharp.Core.FSharpFunc`2<System.Single,i>>,Microsoft.FSharp.Core.FSharpFunc`2<System.Double,Microsoft.FSharp.Core.FSharpFunc`2<System.Double,j>>,Microsoft.FSharp.Core.FSharpFunc`2<System.Decimal,Microsoft.FSharp.Core.FSharpFunc`2<System.Decimal,k>>)", "methodShortName": "binOp(...)", "fileIndex": 0, "line": 108,
+    "assembly": "Giraffe.HotReload", "class": "FSharp.Compiler.PortaCode.Interpreter", "reportPath": "Giraffe.HotReload_Interpreter.htm", "methodName": "FSharp.Compiler.PortaCode.Interpreter/Value FSharp.Compiler.PortaCode.Interpreter::binOp(System.String,System.Object[],Microsoft.FSharp.Core.FSharpFunc`2<System.SByte,Microsoft.FSharp.Core.FSharpFunc`2<System.SByte,a>>,Microsoft.FSharp.Core.FSharpFunc`2<System.Int16,Microsoft.FSharp.Core.FSharpFunc`2<System.Int16,b>>,Microsoft.FSharp.Core.FSharpFunc`2<System.Int32,Microsoft.FSharp.Core.FSharpFunc`2<System.Int32,c>>,Microsoft.FSharp.Core.FSharpFunc`2<System.Int64,Microsoft.FSharp.Core.FSharpFunc`2<System.Int64,d>>,Microsoft.FSharp.Core.FSharpFunc`2<System.Byte,Microsoft.FSharp.Core.FSharpFunc`2<System.Byte,e>>,Microsoft.FSharp.Core.FSharpFunc`2<System.UInt16,Microsoft.FSharp.Core.FSharpFunc`2<System.UInt16,f>>,Microsoft.FSharp.Core.FSharpFunc`2<System.UInt32,Microsoft.FSharp.Core.FSharpFunc`2<System.UInt32,g>>,Microsoft.FSharp.Core.FSharpFunc`2<System.UInt64,Microsoft.FSharp.Core.FSharpFunc`2<System.UInt64,h>>,Microsoft.FSharp.Core.FSharpFunc`2<System.Single,Microsoft.FSharp.Core.FSharpFunc`2<System.Single,i>>,Microsoft.FSharp.Core.FSharpFunc`2<System.Double,Microsoft.FSharp.Core.FSharpFunc`2<System.Double,j>>,Microsoft.FSharp.Core.FSharpFunc`2<System.Decimal,Microsoft.FSharp.Core.FSharpFunc`2<System.Decimal,k>>)", "methodShortName": "binOp(...)", "fileIndex": 0, "line": 164,
     "metrics": [
       { "value": 23, "exceeded": false },
       { "value": 45056, "exceeded": true },
       { "value": 0, "exceeded": false },
     ]},
   {
-    "assembly": "Giraffe.HotReload", "class": "FSharp.Compiler.PortaCode.Interpreter", "reportPath": "Giraffe.HotReload_Interpreter.htm", "methodName": "FSharp.Compiler.PortaCode.Interpreter/Value FSharp.Compiler.PortaCode.Interpreter/EvalContext::EvalCall(FSharp.Compiler.PortaCode.Interpreter/Env,Microsoft.FSharp.Core.FSharpOption`1<FSharp.Compiler.PortaCode.CodeModel/DExpr>,FSharp.Compiler.PortaCode.CodeModel/DMemberRef,FSharp.Compiler.PortaCode.CodeModel/DType[],FSharp.Compiler.PortaCode.CodeModel/DType[],FSharp.Compiler.PortaCode.CodeModel/DExpr[])", "methodShortName": "EvalCall(...)", "fileIndex": 0, "line": 676,
+    "assembly": "Giraffe.HotReload", "class": "FSharp.Compiler.PortaCode.Interpreter", "reportPath": "Giraffe.HotReload_Interpreter.htm", "methodName": "FSharp.Compiler.PortaCode.Interpreter/Value FSharp.Compiler.PortaCode.Interpreter/EvalContext::EvalCall(FSharp.Compiler.PortaCode.Interpreter/Env,Microsoft.FSharp.Core.FSharpOption`1<FSharp.Compiler.PortaCode.CodeModel/DExpr>,FSharp.Compiler.PortaCode.CodeModel/DMemberRef,FSharp.Compiler.PortaCode.CodeModel/DType[],FSharp.Compiler.PortaCode.CodeModel/DType[],FSharp.Compiler.PortaCode.CodeModel/DExpr[])", "methodShortName": "EvalCall(...)", "fileIndex": 0, "line": 887,
     "metrics": [
-      { "value": 50, "exceeded": true },
-      { "value": 33600, "exceeded": true },
+      { "value": 48, "exceeded": true },
+      { "value": 8400, "exceeded": true },
       { "value": 0, "exceeded": false },
     ]},
   {
-    "assembly": "Giraffe.HotReload", "class": "FSharp.Compiler.PortaCode.ProcessCommandLine", "reportPath": "Giraffe.HotReload_ProcessCommandLine.htm", "methodName": "System.Int32 FSharp.Compiler.PortaCode.ProcessCommandLine::ProcessCommandLine(System.String[])", "methodShortName": "ProcessCommandLine(...)", "fileIndex": 0, "line": 20,
-    "metrics": [
-      { "value": 17, "exceeded": false },
-      { "value": 16384, "exceeded": true },
-      { "value": 0, "exceeded": false },
-    ]},
-  {
-    "assembly": "Giraffe.HotReload", "class": "FSharp.Compiler.PortaCode.Interpreter", "reportPath": "Giraffe.HotReload_Interpreter.htm", "methodName": "FSharp.Compiler.PortaCode.Interpreter/Value FSharp.Compiler.PortaCode.Interpreter::shiftOp(System.Object[],Microsoft.FSharp.Core.FSharpFunc`2<System.SByte,Microsoft.FSharp.Core.FSharpFunc`2<System.Int32,a>>,Microsoft.FSharp.Core.FSharpFunc`2<System.Int16,Microsoft.FSharp.Core.FSharpFunc`2<System.Int32,b>>,Microsoft.FSharp.Core.FSharpFunc`2<System.Int32,Microsoft.FSharp.Core.FSharpFunc`2<System.Int32,c>>,Microsoft.FSharp.Core.FSharpFunc`2<System.Int64,Microsoft.FSharp.Core.FSharpFunc`2<System.Int32,d>>,Microsoft.FSharp.Core.FSharpFunc`2<System.Byte,Microsoft.FSharp.Core.FSharpFunc`2<System.Int32,e>>,Microsoft.FSharp.Core.FSharpFunc`2<System.UInt16,Microsoft.FSharp.Core.FSharpFunc`2<System.Int32,f>>,Microsoft.FSharp.Core.FSharpFunc`2<System.UInt32,Microsoft.FSharp.Core.FSharpFunc`2<System.Int32,g>>,Microsoft.FSharp.Core.FSharpFunc`2<System.UInt64,Microsoft.FSharp.Core.FSharpFunc`2<System.Int32,h>>)", "methodShortName": "shiftOp(...)", "fileIndex": 0, "line": 123,
+    "assembly": "Giraffe.HotReload", "class": "FSharp.Compiler.PortaCode.Interpreter", "reportPath": "Giraffe.HotReload_Interpreter.htm", "methodName": "FSharp.Compiler.PortaCode.Interpreter/Value FSharp.Compiler.PortaCode.Interpreter::shiftOp(System.String,System.Object[],Microsoft.FSharp.Core.FSharpFunc`2<System.SByte,Microsoft.FSharp.Core.FSharpFunc`2<System.Int32,a>>,Microsoft.FSharp.Core.FSharpFunc`2<System.Int16,Microsoft.FSharp.Core.FSharpFunc`2<System.Int32,b>>,Microsoft.FSharp.Core.FSharpFunc`2<System.Int32,Microsoft.FSharp.Core.FSharpFunc`2<System.Int32,c>>,Microsoft.FSharp.Core.FSharpFunc`2<System.Int64,Microsoft.FSharp.Core.FSharpFunc`2<System.Int32,d>>,Microsoft.FSharp.Core.FSharpFunc`2<System.Byte,Microsoft.FSharp.Core.FSharpFunc`2<System.Int32,e>>,Microsoft.FSharp.Core.FSharpFunc`2<System.UInt16,Microsoft.FSharp.Core.FSharpFunc`2<System.Int32,f>>,Microsoft.FSharp.Core.FSharpFunc`2<System.UInt32,Microsoft.FSharp.Core.FSharpFunc`2<System.Int32,g>>,Microsoft.FSharp.Core.FSharpFunc`2<System.UInt64,Microsoft.FSharp.Core.FSharpFunc`2<System.Int32,h>>)", "methodShortName": "shiftOp(...)", "fileIndex": 0, "line": 179,
     "metrics": [
       { "value": 17, "exceeded": false },
       { "value": 4096, "exceeded": true },
       { "value": 0, "exceeded": false },
     ]},
   {
-    "assembly": "Giraffe.HotReload", "class": "FSharp.Compiler.PortaCode.Interpreter", "reportPath": "Giraffe.HotReload_Interpreter.htm", "methodName": "FSharp.Compiler.PortaCode.Interpreter/Value FSharp.Compiler.PortaCode.Interpreter::logicBinOp(System.Object[],Microsoft.FSharp.Core.FSharpFunc`2<System.SByte,Microsoft.FSharp.Core.FSharpFunc`2<System.SByte,a>>,Microsoft.FSharp.Core.FSharpFunc`2<System.Int16,Microsoft.FSharp.Core.FSharpFunc`2<System.Int16,b>>,Microsoft.FSharp.Core.FSharpFunc`2<System.Int32,Microsoft.FSharp.Core.FSharpFunc`2<System.Int32,c>>,Microsoft.FSharp.Core.FSharpFunc`2<System.Int64,Microsoft.FSharp.Core.FSharpFunc`2<System.Int64,d>>,Microsoft.FSharp.Core.FSharpFunc`2<System.Byte,Microsoft.FSharp.Core.FSharpFunc`2<System.Byte,e>>,Microsoft.FSharp.Core.FSharpFunc`2<System.UInt16,Microsoft.FSharp.Core.FSharpFunc`2<System.UInt16,f>>,Microsoft.FSharp.Core.FSharpFunc`2<System.UInt32,Microsoft.FSharp.Core.FSharpFunc`2<System.UInt32,g>>,Microsoft.FSharp.Core.FSharpFunc`2<System.UInt64,Microsoft.FSharp.Core.FSharpFunc`2<System.UInt64,h>>)", "methodShortName": "logicBinOp(...)", "fileIndex": 0, "line": 135,
+    "assembly": "Giraffe.HotReload", "class": "FSharp.Compiler.PortaCode.Interpreter", "reportPath": "Giraffe.HotReload_Interpreter.htm", "methodName": "FSharp.Compiler.PortaCode.Interpreter/Value FSharp.Compiler.PortaCode.Interpreter::logicBinOp(System.String,System.Object[],Microsoft.FSharp.Core.FSharpFunc`2<System.SByte,Microsoft.FSharp.Core.FSharpFunc`2<System.SByte,a>>,Microsoft.FSharp.Core.FSharpFunc`2<System.Int16,Microsoft.FSharp.Core.FSharpFunc`2<System.Int16,b>>,Microsoft.FSharp.Core.FSharpFunc`2<System.Int32,Microsoft.FSharp.Core.FSharpFunc`2<System.Int32,c>>,Microsoft.FSharp.Core.FSharpFunc`2<System.Int64,Microsoft.FSharp.Core.FSharpFunc`2<System.Int64,d>>,Microsoft.FSharp.Core.FSharpFunc`2<System.Byte,Microsoft.FSharp.Core.FSharpFunc`2<System.Byte,e>>,Microsoft.FSharp.Core.FSharpFunc`2<System.UInt16,Microsoft.FSharp.Core.FSharpFunc`2<System.UInt16,f>>,Microsoft.FSharp.Core.FSharpFunc`2<System.UInt32,Microsoft.FSharp.Core.FSharpFunc`2<System.UInt32,g>>,Microsoft.FSharp.Core.FSharpFunc`2<System.UInt64,Microsoft.FSharp.Core.FSharpFunc`2<System.UInt64,h>>)", "methodShortName": "logicBinOp(...)", "fileIndex": 0, "line": 191,
     "metrics": [
       { "value": 17, "exceeded": false },
       { "value": 4096, "exceeded": true },
       { "value": 0, "exceeded": false },
     ]},
   {
-    "assembly": "Giraffe.HotReload", "class": "FSharp.Compiler.PortaCode.ProcessCommandLine", "reportPath": "Giraffe.HotReload_ProcessCommandLine.htm", "methodName": "System.Int32 FSharp.Compiler.PortaCode.ProcessCommandLine/args@28::GenerateNext(System.Collections.Generic.IEnumerable`1<System.String>&)", "methodShortName": "GenerateNext(...)", "fileIndex": 0, "line": 28,
+    "assembly": "Giraffe.HotReload", "class": "FSharp.Compiler.PortaCode.Interpreter", "reportPath": "Giraffe.HotReload_Interpreter.htm", "methodName": "FSharp.Compiler.PortaCode.Interpreter/Value FSharp.Compiler.PortaCode.Interpreter/EvalContext::EvalExpr(FSharp.Compiler.PortaCode.Interpreter/Env,FSharp.Compiler.PortaCode.CodeModel/DExpr)", "methodShortName": "EvalExpr(...)", "fileIndex": 0, "line": 788,
     "metrics": [
-      { "value": 20, "exceeded": false },
-      { "value": 2048, "exceeded": true },
+      { "value": 46, "exceeded": true },
+      { "value": 1024, "exceeded": true },
       { "value": 0, "exceeded": false },
     ]},
   {
-    "assembly": "Giraffe.HotReload", "class": "FSharp.Compiler.PortaCode.Interpreter", "reportPath": "Giraffe.HotReload_Interpreter.htm", "methodName": "FSharp.Compiler.PortaCode.Interpreter/ResolvedType FSharp.Compiler.PortaCode.Interpreter/EvalContext::ResolveType(FSharp.Compiler.PortaCode.Interpreter/Env,FSharp.Compiler.PortaCode.CodeModel/DType)", "methodShortName": "ResolveType(...)", "fileIndex": 0, "line": 260,
+    "assembly": "Giraffe.HotReload", "class": "FSharp.Compiler.PortaCode.ProcessCommandLine", "reportPath": "Giraffe.HotReload_ProcessCommandLine.htm", "methodName": "System.String FSharp.Compiler.PortaCode.ProcessCommandLine/formatValue@243::Invoke(System.Object)", "methodShortName": "Invoke(...)", "fileIndex": 0, "line": 245,
     "metrics": [
-      { "value": 17, "exceeded": false },
-      { "value": 512, "exceeded": true },
+      { "value": 13, "exceeded": false },
+      { "value": 1024, "exceeded": true },
       { "value": 0, "exceeded": false },
     ]},
   {
-    "assembly": "Giraffe.HotReload", "class": "FSharp.Compiler.PortaCode.Interpreter", "reportPath": "Giraffe.HotReload_Interpreter.htm", "methodName": "FSharp.Compiler.PortaCode.Interpreter/ResolvedMember FSharp.Compiler.PortaCode.Interpreter/EvalContext::ResolveMethod(FSharp.Compiler.PortaCode.CodeModel/DMemberRef)", "methodShortName": "ResolveMethod(...)", "fileIndex": 0, "line": 393,
+    "assembly": "Giraffe.HotReload", "class": "Giraffe.HotReload.LiveUpdate", "reportPath": "Giraffe.HotReload_LiveUpdate.htm", "methodName": "Microsoft.FSharp.Core.FSharpResult`2<Microsoft.FSharp.Core.FSharpFunc`2<Microsoft.FSharp.Core.FSharpFunc`2<Microsoft.AspNetCore.Http.HttpContext,System.Threading.Tasks.Task`1<Microsoft.FSharp.Core.FSharpOption`1<Microsoft.AspNetCore.Http.HttpContext>>>,Microsoft.FSharp.Core.FSharpFunc`2<Microsoft.AspNetCore.Http.HttpContext,System.Threading.Tasks.Task`1<Microsoft.FSharp.Core.FSharpOption`1<Microsoft.AspNetCore.Http.HttpContext>>>>,System.String> Giraffe.HotReload.LiveUpdate/tryResolveAsFunction@109-1::Invoke(System.Tuple`2<FSharp.Compiler.PortaCode.CodeModel/DMemberDef,FSharp.Compiler.PortaCode.CodeModel/DExpr>)", "methodShortName": "Invoke(...)", "fileIndex": 0, "line": 110,
     "metrics": [
-      { "value": 15, "exceeded": false },
-      { "value": 512, "exceeded": true },
-      { "value": 0, "exceeded": false },
-    ]},
-  {
-    "assembly": "Giraffe.HotReload", "class": "FSharp.Compiler.PortaCode.Interpreter", "reportPath": "Giraffe.HotReload_Interpreter.htm", "methodName": "FSharp.Compiler.PortaCode.Interpreter/Value FSharp.Compiler.PortaCode.Interpreter/EvalContext::EvalApplicationOfArg(FSharp.Compiler.PortaCode.Interpreter/Env,FSharp.Compiler.PortaCode.Interpreter/Value,System.Object[])", "methodShortName": "EvalApplicationOfArg(...)", "fileIndex": 0, "line": 642,
-    "metrics": [
-      { "value": 12, "exceeded": false },
-      { "value": 256, "exceeded": true },
-      { "value": 0, "exceeded": false },
-    ]},
-  {
-    "assembly": "Giraffe.HotReload", "class": "FSharp.Compiler.PortaCode.Interpreter", "reportPath": "Giraffe.HotReload_Interpreter.htm", "methodName": "FSharp.Compiler.PortaCode.Interpreter/Value FSharp.Compiler.PortaCode.Interpreter/EvalContext::EvalExpr(FSharp.Compiler.PortaCode.Interpreter/Env,FSharp.Compiler.PortaCode.CodeModel/DExpr)", "methodShortName": "EvalExpr(...)", "fileIndex": 0, "line": 585,
-    "metrics": [
-      { "value": 41, "exceeded": true },
-      { "value": 16, "exceeded": false },
+      { "value": 10, "exceeded": false },
+      { "value": 320, "exceeded": true },
       { "value": 0, "exceeded": false },
     ]},
 ];

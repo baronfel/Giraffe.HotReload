@@ -4,20 +4,20 @@ open System.Reflection
 
 [<assembly: AssemblyTitleAttribute("Giraffe.HotReload")>]
 [<assembly: AssemblyProductAttribute("Giraffe.HotReload")>]
-[<assembly: AssemblyVersionAttribute("0.1.0")>]
+[<assembly: AssemblyVersionAttribute("0.2.0")>]
 [<assembly: AssemblyMetadataAttribute("ReleaseDate","2017-03-17T00:00:00.0000000")>]
-[<assembly: AssemblyFileVersionAttribute("0.1.0")>]
-[<assembly: AssemblyInformationalVersionAttribute("0.1.0")>]
+[<assembly: AssemblyFileVersionAttribute("0.2.0")>]
+[<assembly: AssemblyInformationalVersionAttribute("0.2.0")>]
 [<assembly: AssemblyMetadataAttribute("ReleaseChannel","release")>]
-[<assembly: AssemblyMetadataAttribute("GitHash","e2cffeeb0e3ae95b32809d00aa5e73633e5d06e1")>]
+[<assembly: AssemblyMetadataAttribute("GitHash","e1e010e377825145bad6fa624fba7a710843c473")>]
 do ()
 
 module internal AssemblyVersionInformation =
     let [<Literal>] AssemblyTitle = "Giraffe.HotReload"
     let [<Literal>] AssemblyProduct = "Giraffe.HotReload"
-    let [<Literal>] AssemblyVersion = "0.1.0"
+    let [<Literal>] AssemblyVersion = "0.2.0"
     let [<Literal>] AssemblyMetadata_ReleaseDate = "2017-03-17T00:00:00.0000000"
-    let [<Literal>] AssemblyFileVersion = "0.1.0"
-    let [<Literal>] AssemblyInformationalVersion = "0.1.0"
+    let [<Literal>] AssemblyFileVersion = "0.2.0"
+    let [<Literal>] AssemblyInformationalVersion = "0.2.0"
     let [<Literal>] AssemblyMetadata_ReleaseChannel = "release"
-    let [<Literal>] AssemblyMetadata_GitHash = "e2cffeeb0e3ae95b32809d00aa5e73633e5d06e1"
+    let [<Literal>] AssemblyMetadata_GitHash = "e1e010e377825145bad6fa624fba7a710843c473"

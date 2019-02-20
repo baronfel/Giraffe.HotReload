@@ -106,7 +106,7 @@ let configureApp (app : IApplicationBuilder) =
 #if DEBUG
         .UseGiraffeWithHotReload(webApp env)
 #else
-        .UseGiraffe(webApp)
+        .UseGiraffe(webApp env)
 #endif
     |> ignore
 
