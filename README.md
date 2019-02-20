@@ -20,12 +20,17 @@ A repo to explore using [FSharp.Compiler.Portacode](https://github.com/fsproject
 
 #### Triggering the auto-reload of your Giraffe app
 
-The code right now looks for a member named `webApp` whose signature is `HttpHandler`. If such a member is found, the reload will occur.
-If no member is found, there will be an error message written to the Asp.Net core log.
+The code looks for either a static HttpHandler value or a HttpHandler-generating-function called `webApp` in your main application code.
 
-Check the `samples/ReloadSample/Program.fs` file for an example.
+If the value `webApp: HttpHandler` is found, that value is passed into the HotReload middleware immediately.
 
-In the future I hope to expand the auto-refresh to include members named `webApp` that have more complex signatures, and use the dependency-injection features to fill in missing parameters.
+If a member of the form `webApp: 'dep1 -> ... -> 'depN -> HttpHandler` is found, the parameters are resolved from the `HttpContext.RequestServices` service locator on your behalf, passed into the function to get the `HttpHandler`, and then that value is passed into the HotReload middleware.
+
+Log messages for both of these traversal paths will be written to the ASP.Net Core Logging Infrastructure under the `Giraffe.HotReload.LiveUpdate.HotReloadGiraffeMiddleware` logger name, 
+
+Check the `samples/ReloadSample/Program.fs` file for an example of a function-generating `webApp`.
+
+WARNING: If your function includes generic parameters it _will not work_ at this time. 
 
 #### Enabling auto-refresh of your page
 
