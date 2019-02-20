@@ -1195,11 +1195,11 @@ NUGET
       System.ValueTuple (>= 4.4) - restriction: >= net461
 GITHUB
   remote: fsprojects/FSharp.Compiler.PortaCode
-    src/CodeModel.fs (a21e622bca42dd58e186c32f9be0505335f3c4a7)
-    src/FromCompilerService.fs (a21e622bca42dd58e186c32f9be0505335f3c4a7)
-    src/Interpreter.fs (a21e622bca42dd58e186c32f9be0505335f3c4a7)
-    src/ProcessCommandLine.fs (a21e622bca42dd58e186c32f9be0505335f3c4a7)
-    src/ProjectCracker.fs (a21e622bca42dd58e186c32f9be0505335f3c4a7)
+    src/CodeModel.fs (0c6686bcc518246d879bb3d0e3cd4cdbbc72d5ad)
+    src/FromCompilerService.fs (0c6686bcc518246d879bb3d0e3cd4cdbbc72d5ad)
+    src/Interpreter.fs (0c6686bcc518246d879bb3d0e3cd4cdbbc72d5ad)
+    src/ProcessCommandLine.fs (0c6686bcc518246d879bb3d0e3cd4cdbbc72d5ad)
+    src/ProjectCracker.fs (0c6686bcc518246d879bb3d0e3cd4cdbbc72d5ad)
 GROUP Build
 STORAGE: NONE
 NUGET

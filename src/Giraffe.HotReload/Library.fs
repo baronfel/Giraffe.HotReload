@@ -2,6 +2,8 @@ namespace Giraffe.HotReload
 
 module rec LiveUpdate =
   open System
+  open System.Reflection
+  open System.Threading.Tasks
   open Giraffe
   open GiraffeViewEngine
   open Microsoft.AspNetCore.Http
@@ -9,6 +11,7 @@ module rec LiveUpdate =
   open FSharp.Compiler.PortaCode.CodeModel
   open FSharp.Compiler.PortaCode.Interpreter
   open FSharp.Control.Tasks.V2.ContextInsensitive
+
 
   let welcomePage: XmlNode =
     html [ ] [
@@ -24,55 +27,157 @@ module rec LiveUpdate =
   let rec tryFindMemberByName name (decls: DDecl[]) =
     decls |> Array.tryPick (function
         | DDeclEntity (_, ds) -> tryFindMemberByName name ds
-        | DDeclMember (membDef, body) -> if membDef.Name = name then Some (membDef, body) else None
+        | DDeclMember (membDef, body, _range) -> if membDef.Name = name then Some (membDef, body) else None
         | _ -> None)
 
 
-  let handleUpdate (middleware: HotReloadGiraffeMiddleware) : HttpHandler = fun next ctx -> task {
-    let logger = ctx.GetLogger<HotReloadGiraffeMiddleware>()
+  let handleUpdate (middleware: HotReloadGiraffeMiddleware) : HttpHandler =
     let error message = setStatusCode 400 >=> json { message = message }
     let interpreter = EvalContext(System.Reflection.Assembly.Load)
 
-    let tryFindWebAppInFile (file: DFile) =
-      tryFindMemberByName "webApp" file.Code
+    let tryFindWebAppInFile (fileName, file) = tryFindMemberByName "webApp" file.Code
 
-    let tryFindWebApp (files: DFile []) = files |> Array.choose tryFindWebAppInFile |> Array.tryHead
+    let tryFindWebApp (files: (string * DFile) []) = files |> Array.filter (fun (fileName, file) -> box file.Code <> null) |> Array.choose tryFindWebAppInFile |> Array.tryHead
 
-    let tryEvalMember (def: DMemberDef, bodyExpr: DExpr) =
+    let getTypeForRef (logger: ILogger) (ref: DEntityRef) =
+        let (DEntityRef refName) = ref
+        match interpreter.ResolveEntity(ref) with
+        | REntity t ->
+          logger.LogTrace("type {refType} was resolved to type {realType}", refName, t.FullName)
+          t
+        | _ -> failwith "boom"
+
+    let rec resolveType logger (t: DType) =
+      match t with
+      | DNamedType (ref, [||]) -> getTypeForRef logger ref
+      | DNamedType (ref, typeArgs) ->
+          let baseTy = getTypeForRef logger ref
+          let tyArgs = typeArgs |> Array.map (resolveType logger)
+          baseTy.MakeGenericType(tyArgs)
+      | DFunctionType (inTy, outTy) -> typedefof<FSharpFunc<_,_>>.MakeGenericType([| resolveType logger inTy; resolveType logger outTy |])
+      | DArrayType (len, elemTy) -> typedefof<_ []>.MakeGenericType([| resolveType logger elemTy |])
+      | DByRefType _
+      | DVariableType _
+      | DTupleType _ -> typeof<unit>
+
+    let methodLambdaValueToHandler (logger: ILogger) (resolver: Type -> obj) (def: DMemberDef) (mlv: MethodLambdaValue) =
+      let resolvedReturnType = resolveType logger def.ReturnType
+      if resolvedReturnType <> typeof<HttpHandler>
+      then
+        logger.LogWarning ("Not of correct final return type. Expected HttpHandler, got {type}", resolvedReturnType.FullName)
+        Error ("bad return type")
+      else
+        let typeParameters =
+            // TODO: resolve def.GenericParameters
+            def.GenericParameters
+        let parameters =
+          logger.LogInformation("deriving parameters for lambda")
+          let parameterTypes = def.Parameters |> Array.map (fun t -> match t.Type with | DNamedType (typeRef, types) -> getTypeForRef logger typeRef | _ -> typeof<unit> )
+          logger.LogInformation ("have {count} parameter types", parameterTypes.Length)
+          let parameterObjects = parameterTypes |> Array.map (fun t ->
+            let v = resolver t
+            logger.LogInformation("resolve instance of {type}", t.FullName)
+            v
+          )
+          logger.LogInformation ("have {count} parameter instances", parameterObjects.Length)
+          parameterObjects
+
+        let (MethodLambdaValue lambda) = mlv
+        let h = lambda ([||], parameters) :?> HttpHandler
+        logger.LogInformation ("handler created")
+        Ok h
+
+    let tryResolveAsValue (logger: ILogger) (resolver: Type -> obj) (def: DMemberDef, bodyExpr: DExpr) =
+      try
+        let entity = interpreter.ResolveEntity(def.EnclosingEntity)
+        let (def, memberValue) = interpreter.GetExprDeclResult(entity, def.Name)
+
+        match getVal memberValue with
+        | :? HttpHandler as handler ->
+          logger.LogInformation("updating Giraffe handler with new member {memberName} from {enclosingType}", def.Name, (def.EnclosingEntity.GetType().FullName))
+          Ok handler
+        | :? MethodLambdaValue as mlv ->
+          methodLambdaValueToHandler logger resolver def mlv
+        | other ->
+          logger.LogWarning("The handler was of the wrong type. Expected an `HttpHandler` but got an {finalType}", (sprintf "%A" (other.GetType())))
+          Error (sprintf "The handler was of the wrong type. Expected an `HttpHandler` but got an `%A`" (other.GetType()))
+      with
+      | e ->
+        logger.LogWarning ("Error while doing the value: {err}", e)
+        Error (sprintf "Error while doing the value: %s\n\t%s" e.Message e.StackTrace)
+
+    let tryResolveAsFunction (logger: ILogger) resolver (def: DMemberDef, bodyExpr: DExpr) : Result<HttpHandler, string> =
+      try
+
+        let entity = interpreter.ResolveEntity(def.EnclosingEntity)
+        let meth = interpreter.ResolveMethod(def.Ref)
+
+        match meth with
+        | RMethod m ->
+          let meth = m :?> MethodInfo
+          if meth.ReturnType <> typeof<HttpHandler>
+          then
+            logger.LogWarning ("method must have a final return type of HttpHandler, was {retTy}", meth.ReturnType.FullName)
+            Error (sprintf "method must have a final return type of HttpHandler, was %s" meth.ReturnType.FullName)
+          else
+            let parameterTypes = meth.GetParameters() |> Array.map (fun p -> p.ParameterType)
+            let parameterInstances = parameterTypes |> Array.map resolver
+            meth.Invoke(null, parameterInstances) :?> HttpHandler |> Ok
+        | UMethod (def, Value value) when value.GetType() = typeof<MethodLambdaValue> ->
+          methodLambdaValueToHandler logger resolver def (value :?> MethodLambdaValue)
+        | UMethod (def, Value value) ->
+          logger.LogInformation ("value type was {ty}", (value.GetType()))
+          Error "UMethod"
+        | n ->
+          logger.LogWarning ("method was some other type {ty}", (n.GetType()))
+          Error "method was of the wrong type"
+      with
+      | e ->
+        logger.LogWarning ("Error while doing the function: {err}", e)
+        Error (sprintf "Error while doing the function: %s\n\t%s" e.Message e.StackTrace)
+
+    let tryEvalMember (resolver: Type -> obj) (logger: ILogger) (def: DMemberDef, bodyExpr: DExpr) =
       let entity = interpreter.ResolveEntity(def.EnclosingEntity)
-      let memberRef = interpreter.GetExprDeclResult(entity, def.Name)
 
-      match getVal memberRef with
-      | :? HttpHandler as handler ->
-        logger.LogInformation("updating Giraffe handler with new member {mamberName} from {enclosingType}", def.Name, (def.EnclosingEntity.GetType().FullName))
+      let found = [tryResolveAsValue logger resolver
+                   tryResolveAsFunction logger resolver ]
+                  |> List.tryPick (fun f -> match f (def, bodyExpr) with | Ok handler -> Some handler | Error msg -> None)
+
+      match found with
+      | Some handler ->
         middleware.Update handler
-        Ok "The handler has been changed"
-      | other ->
-        logger.LogWarning("The handler was of the wrong type. Expected an `HttpHandler` but got an {finalType}", (sprintf "%A" (other.GetType())))
-        Error (sprintf "The handler was of the wrong type. Expected an `HttpHandler` but got an `%A`" (other.GetType()))
+        Ok "handler updated!"
+      | None ->
+        Error "No handler could be found"
 
-    let updateFiles (files: DFile[]) =
+    let updateFiles resolver (logger: ILogger) (files: (string * DFile)[]) =
       lock interpreter (fun () ->
-        files |> Array.iter (fun file -> interpreter.AddDecls file.Code)
-        files |> Array.iter (fun file -> interpreter.EvalDecls (envEmpty, file.Code))
+        files |> Array.iter (fun (fileName, file) -> if file.Code <> null then interpreter.AddDecls file.Code)
+        files |> Array.iter (fun (fileName, file) -> if file.Code <> null then interpreter.EvalDecls (envEmpty, file.Code))
       )
       match files with
+      | null
       | [|  |] ->
         logger.LogError("No files found in request")
         error "Must send some files"
       | files ->
         match tryFindWebApp files with
         | Some webAppMember ->
-          match tryEvalMember webAppMember with
+          match tryEvalMember resolver logger webAppMember with
           | Ok result ->
             setStatusCode 200 >=> json { message = result }
-          | Error errMsg -> error errMsg
+          | Error errMsg ->
+            logger.LogError errMsg
+            error errMsg
         | None ->
           logger.LogError("Couldn't find a member called `webApp` with signature `Giraffe.HttpHandler`")
           error "Couldn't find a member called `webApp` with signature `Giraffe.HttpHandler`"
 
-    return! bindJson updateFiles next ctx
-  }
+    fun next ctx -> task {
+      let logger = ctx.GetLogger<HotReloadGiraffeMiddleware>()
+      let resolver ty = ctx.RequestServices.GetService(ty)
+      return! bindJson (updateFiles resolver logger) next ctx
+    }
 
   let updater middleware: HttpHandler =
     route "/update" >=> choose [

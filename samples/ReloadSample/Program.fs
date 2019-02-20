@@ -58,7 +58,7 @@ socket.onerror = function(error) {
         ]
 
     let partial () =
-        h1 [] [ encodedText "ReloadSample has changes!" ]
+        h1 [] [ encodedText "ReloadSample with changes!" ]
 
     let index (model : Message) =
         [
@@ -71,16 +71,16 @@ socket.onerror = function(error) {
 // ---------------------------------
 
 let indexHandler (name : string) =
-    let greetings = sprintf "Hello %s, from Giraffe!" name
+    let greetings = sprintf "Hello earthling %s, from Giraffe!" name
     let model     = { Text = greetings }
     let view      = Views.index model
     htmlView view
 
-let webApp: HttpHandler =
+let webApp (env: IHostingEnvironment) : HttpHandler =
     choose [
         GET >=>
             choose [
-                route "/" >=> indexHandler "world"
+                route "/" >=> indexHandler (sprintf "world in the %s environment" env.EnvironmentName)
                 routef "/hello/%s" indexHandler
             ]
         setStatusCode 404 >=> text "Not Found" ]
@@ -104,7 +104,7 @@ let configureApp (app : IApplicationBuilder) =
     | true  -> app.UseDeveloperExceptionPage()
     | false -> app.UseGiraffeErrorHandler errorHandler)
 #if DEBUG
-        .UseGiraffeWithHotReload(webApp)
+        .UseGiraffeWithHotReload(webApp env)
 #else
         .UseGiraffe(webApp)
 #endif
