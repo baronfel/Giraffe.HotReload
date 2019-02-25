@@ -12,6 +12,13 @@ module rec LiveUpdate =
   open FSharp.Compiler.PortaCode.Interpreter
   open FSharp.Control.Tasks.V2.ContextInsensitive
 
+  type Settings = {
+    UpdateRoute : string
+  }
+    with
+      static member Default = {
+        UpdateRoute = "/update"
+      }
 
   let welcomePage: XmlNode =
     html [ ] [
@@ -179,8 +186,8 @@ module rec LiveUpdate =
       return! bindJson (updateFiles resolver logger) next ctx
     }
 
-  let updater middleware: HttpHandler =
-    route "/update" >=> choose [
+  let updater (settings : Settings) middleware: HttpHandler =
+    route settings.UpdateRoute >=> choose [
       GET >=> htmlView welcomePage
       PUT >=> handleUpdate middleware
     ]
@@ -189,9 +196,10 @@ module rec LiveUpdate =
   type HotReloadGiraffeMiddleware(next: RequestDelegate,
                                   handler: HttpHandler,
                                   sockets: ResizeArray<System.Net.WebSockets.WebSocket>,
+                                  settings : Settings,
                                   loggerFactory: ILoggerFactory) as self =
         let logger = loggerFactory.CreateLogger<HotReloadGiraffeMiddleware>()
-        let merge handler = choose [LiveUpdate.updater self; handler ]
+        let merge handler = choose [LiveUpdate.updater settings self; handler ]
         let refreshCommand = "refresh" |> System.Text.Encoding.UTF8.GetBytes |> ArraySegment
         let mutable innerMiddleware = Middleware.GiraffeMiddleware(next, merge handler, loggerFactory)
 
@@ -221,7 +229,7 @@ module Extensions =
   open System.Threading.Tasks
 
   type IApplicationBuilder with
-    member this.UseGiraffeWithHotReload(handler: HttpHandler) =
+    member this.UseGiraffeWithHotReload(handler: HttpHandler, settings : LiveUpdate.Settings) =
       let loggerFactory  = this.ApplicationServices.GetService(typeof<ILoggerFactory>) :?> ILoggerFactory
       let logger = loggerFactory.CreateLogger("Giraffe.HotReload.Websockets")
       // keep a list of websockets so that we can mutably append to it and share it with the middleware
@@ -267,5 +275,8 @@ module Extensions =
       // accept websockets and register them
       this.Use(System.Func<_, _, _> registerSocket) |> ignore
       // invoke our liveupdate middleware
-      this.UseMiddleware<LiveUpdate.HotReloadGiraffeMiddleware>(handler, sockets) |> ignore
+      this.UseMiddleware<LiveUpdate.HotReloadGiraffeMiddleware>(handler, sockets, settings) |> ignore
+
+    member this.UseGiraffeWithHotReload(handler: HttpHandler) =
+      this.UseGiraffeWithHotReload(handler, LiveUpdate.Settings.Default)
 
