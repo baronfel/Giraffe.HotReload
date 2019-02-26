@@ -13,6 +13,7 @@ module rec LiveUpdate =
   open FSharp.Control.Tasks.V2.ContextInsensitive
 
   type Settings = {
+    /// The route where the hot reload tool should post.
     UpdateRoute : string
   }
     with
