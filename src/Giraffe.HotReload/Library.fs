@@ -1,6 +1,4 @@
 namespace Giraffe.HotReload
-open System.Net.WebSockets
-open System.IO
 module rec LiveUpdate =
   open System
   open System.Reflection
@@ -13,6 +11,8 @@ module rec LiveUpdate =
   open FSharp.Compiler.PortaCode.Interpreter
   open FSharp.Control.Tasks.V2.ContextInsensitive
   open Microsoft.AspNetCore.Hosting
+  open System.Net.WebSockets
+  open System.IO
 
   type Settings = {
     /// The route where the hot reload tool should post.
