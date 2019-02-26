@@ -10,12 +10,39 @@ A repo to explore using [FSharp.Compiler.Portacode](https://github.com/fsproject
 * Invoke the `giraffe-reload` tool in watch-mode on your project
   * `giraffe-reload --watch --webhook:http://localhost:5000/update path/to/project.fsproj`
   * If your project runs on another IP or port, change it as appropriate.
-  * The `/update` route is hard-coded right now, but may be made configurable in the future
+  * The `/update` route is default right now, but can be [configured](#configuration)
   * You can run the tool from your project directory and it'll discover your fsproj as well.
 * open the `Giraffe.HotReload` namespace and use the new `UseGiraffeWithHotReload` extension method on `IApplicationBuilder`. You'll likely want to `#if`def this around the `DEBUG` define, so that you don't allow hot-reloading in production.
 * Use this extension method _instead_ of the normal `UseGiraffe` one. Check the sample project for an example usage.
 * Launch your project as usual, likely via `dotnet run`
 * Make edits to your giraffe handler
+
+
+#### Settings
+
+The current settings that can be configured are listed below.
+
+```fsharp
+  type Settings = {
+    /// The route where the hot reload tool should post.
+    UpdateRoute : string
+    /// The route for the websocket that will refresh the browser.
+    WebsocketRefreshRoute : string
+  }
+    with
+      static member Default = {
+        UpdateRoute = "/update"
+        WebsocketRefreshRoute = "/ws"
+      }
+```
+
+You can pass these settings to the `UseGiraffeWithHotReload` as a second argument.
+
+```fsharp
+let settings = { Settings.Default with UpdateRoute = "/PleaseSendCodeHere" }
+
+app.UseGiraffeWithHotReload(webApp,settings)
+```
 
 
 #### Triggering the auto-reload of your Giraffe app
@@ -26,11 +53,11 @@ If the value `webApp: HttpHandler` is found, that value is passed into the HotRe
 
 If a member of the form `webApp: 'dep1 -> ... -> 'depN -> HttpHandler` is found, the parameters are resolved from the `HttpContext.RequestServices` service locator on your behalf, passed into the function to get the `HttpHandler`, and then that value is passed into the HotReload middleware.
 
-Log messages for both of these traversal paths will be written to the ASP.Net Core Logging Infrastructure under the `Giraffe.HotReload.LiveUpdate.HotReloadGiraffeMiddleware` logger name, 
+Log messages for both of these traversal paths will be written to the ASP.Net Core Logging Infrastructure under the `Giraffe.HotReload.LiveUpdate.HotReloadGiraffeMiddleware` logger name,
 
 Check the `samples/ReloadSample/Program.fs` file for an example of a function-generating `webApp`.
 
-WARNING: If your function includes generic parameters it _will not work_ at this time. 
+WARNING: If your function includes generic parameters it _will not work_ at this time.
 
 #### Enabling auto-refresh of your page
 
@@ -53,7 +80,7 @@ socket.onclose = function(event) {
 socket.onerror = function(error) {
   console.log("error", error);
 }
-``` 
+```
 
 ---
 
@@ -78,10 +105,10 @@ To test the current set up:
 MacOS/Linux | Windows
 --- | ---
 [![Travis Badge](https://travis-ci.org/baronfel/Giraffe.HotReload.svg?branch=master)](https://travis-ci.org/baronfel/Giraffe.HotReload) | [![Build status](https://ci.appveyor.com/api/projects/status/github/baronfel/Giraffe.HotReload?svg=true)](https://ci.appveyor.com/project/baronfel/Giraffe.HotReload)
-[![Build History](https://buildstats.info/travisci/chart/baronfel/Giraffe.HotReload)](https://travis-ci.org/baronfel/Giraffe.HotReload/builds) | [![Build History](https://buildstats.info/appveyor/chart/baronfel/Giraffe.HotReload)](https://ci.appveyor.com/project/baronfel/Giraffe.HotReload)  
+[![Build History](https://buildstats.info/travisci/chart/baronfel/Giraffe.HotReload)](https://travis-ci.org/baronfel/Giraffe.HotReload/builds) | [![Build History](https://buildstats.info/appveyor/chart/baronfel/Giraffe.HotReload)](https://ci.appveyor.com/project/baronfel/Giraffe.HotReload)
 
 
-## Nuget 
+## Nuget
 
 Stable | Prerelease
 --- | ---

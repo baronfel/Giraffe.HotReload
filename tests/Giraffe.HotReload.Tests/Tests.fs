@@ -30,8 +30,8 @@ module Harness =
   let webApp =
     route "/" >=> htmlView View.index
 
-  let configureApp (app: IApplicationBuilder) =
-    app.UseGiraffeWithHotReload webApp
+  let configureApp settings (app: IApplicationBuilder) =
+    app.UseGiraffeWithHotReload(webApp, settings)
     |> ignore
 
 
@@ -39,25 +39,26 @@ module Harness =
       svcs.AddGiraffe()
       |> ignore
 
-  let builder =
+  let builder settings =
     WebHost.CreateDefaultBuilder()
-      .Configure(Action<_> configureApp)
+      .Configure(Action<_> (configureApp settings))
       .ConfigureServices(Action<_> configureServices)
 
 open Expecto
 open Microsoft.AspNetCore.TestHost
 open System.Net.Http
 open System.Net
+open Giraffe.HotReload
 
-let testsWithServer category tests =
-  let server = new TestServer(Harness.builder)
+let testsWithServer settings category tests =
+  let server = new TestServer(Harness.builder settings)
   testList category [
     for test in tests -> test server
   ]
 
 [<Tests>]
 let tests =
-  testsWithServer "live update" [
+  testsWithServer LiveUpdate.Settings.Default "live update" [
     fun server -> testTask "can delegate to normal giraffe middleware"  {
       let! (response: HttpResponseMessage) = server.CreateRequest("/").GetAsync()
       Expect.equal response.StatusCode HttpStatusCode.OK "should have retrieved the root"
