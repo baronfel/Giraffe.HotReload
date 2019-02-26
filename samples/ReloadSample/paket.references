@@ -1,3 +1,4 @@
 Giraffe
 Microsoft.AspNetCore
 Taskbuilder.fs
+Microsoft.AspNetCore.StaticFiles

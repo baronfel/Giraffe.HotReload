@@ -8,6 +8,8 @@ open Microsoft.Extensions.Logging
 open Microsoft.Extensions.DependencyInjection
 open Giraffe
 open Giraffe.HotReload
+open System.Net.Http
+open Microsoft.AspNetCore.Http
 
 // ---------------------------------
 // Models
@@ -100,6 +102,7 @@ let errorHandler (ex : Exception) (logger : ILogger) =
 
 let configureApp (app : IApplicationBuilder) =
     let env = app.ApplicationServices.GetService<IHostingEnvironment>()
+    let app = app.UseStaticFiles()
     (match env.IsDevelopment() with
     | true  -> app.UseDeveloperExceptionPage()
     | false -> app.UseGiraffeErrorHandler errorHandler)

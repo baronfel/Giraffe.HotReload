@@ -1,6 +1,6 @@
 namespace Giraffe.HotReload
-open Microsoft.AspNetCore.Hosting
-
+open System.Net.WebSockets
+open System.IO
 module rec LiveUpdate =
   open System
   open System.Reflection
@@ -12,6 +12,7 @@ module rec LiveUpdate =
   open FSharp.Compiler.PortaCode.CodeModel
   open FSharp.Compiler.PortaCode.Interpreter
   open FSharp.Control.Tasks.V2.ContextInsensitive
+  open Microsoft.AspNetCore.Hosting
 
   type Settings = {
     /// The route where the hot reload tool should post.
@@ -206,12 +207,43 @@ module rec LiveUpdate =
   /// A middleware that delegates to GiraffeMiddlware, but updates the middleware when the HttpHandler is updated
   type HotReloadGiraffeMiddleware(next: RequestDelegate,
                                   handler: HttpHandler,
+                                  hostEnv : IHostingEnvironment,
                                   sockets: ResizeArray<System.Net.WebSockets.WebSocket>,
                                   settings : Settings,
                                   loggerFactory: ILoggerFactory) as self =
         let logger = loggerFactory.CreateLogger<HotReloadGiraffeMiddleware>()
         let merge handler = choose [LiveUpdate.updater settings self; handler ]
         let refreshCommand = "refresh" |> System.Text.Encoding.UTF8.GetBytes |> ArraySegment
+        let sendRefreshCommand (socket : WebSocket) = socket.SendAsync(refreshCommand, Net.WebSockets.WebSocketMessageType.Text, true, Threading.CancellationToken.None)
+        let notifyAllSockets sockets =
+          sockets
+          |> Seq.mapi (fun i socket -> task {
+              logger.LogInformation("Notifying websocket {id}", i)
+              do! sendRefreshCommand socket
+            }
+          )
+          |> System.Threading.Tasks.Task.WhenAll
+          |> ignore
+
+        let handleFileChange (fc : FileSystemEventArgs) =
+          logger.LogDebug("Static content file {path} changed. Sending refresh commands", fc.FullPath)
+
+          notifyAllSockets sockets
+        let addWatchHandlers (fw : FileSystemWatcher) =
+          logger.LogDebug("Starting static content watcher for {path}", fw.Path)
+          fw.Changed
+          |> Event.add handleFileChange
+          fw.Created
+          |> Event.add handleFileChange
+          fw.Renamed
+          |> Event.add handleFileChange
+          fw.Deleted
+          |> Event.add handleFileChange
+          fw.EnableRaisingEvents <- true
+        let filewatchers = [
+          new FileSystemWatcher(hostEnv.WebRootPath, "*.*", IncludeSubdirectories=true)
+        ]
+        do filewatchers |> List.iter(addWatchHandlers)
         let mutable innerMiddleware = Middleware.GiraffeMiddleware(next, merge handler, loggerFactory)
 
         member __.Invoke (ctx: HttpContext) = innerMiddleware.Invoke ctx
@@ -219,14 +251,7 @@ module rec LiveUpdate =
         /// Replace the current giraffe pipeline with a new one based on the provided `HttpHandler`
         member __.Update(newHandler) =
           innerMiddleware <- Middleware.GiraffeMiddleware(next, merge newHandler, loggerFactory)
-          sockets
-          |> Seq.mapi (fun i socket -> task {
-              logger.LogInformation("Notifying websocket {id}", i)
-              do! socket.SendAsync(refreshCommand, Net.WebSockets.WebSocketMessageType.Text, true, Threading.CancellationToken.None)
-            }
-          )
-          |> System.Threading.Tasks.Task.WhenAll
-          |> ignore
+          notifyAllSockets sockets
 
 
 [<AutoOpen>]
@@ -290,5 +315,3 @@ module Extensions =
 
     member this.UseGiraffeWithHotReload(handler: HttpHandler) =
       this.UseGiraffeWithHotReload(handler, LiveUpdate.Settings.Default)
-
-
