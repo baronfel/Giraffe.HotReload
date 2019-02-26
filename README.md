@@ -26,7 +26,14 @@ The current settings that can be configured are listed below.
   type Settings = {
     /// The route where the hot reload tool should post.
     UpdateRoute : string
+    /// The route for the websocket that will refresh the browser.
+    WebsocketRefreshRoute : string
   }
+    with
+      static member Default = {
+        UpdateRoute = "/update"
+        WebsocketRefreshRoute = "/ws"
+      }
 ```
 
 You can pass these settings to the `UseGiraffeWithHotReload` as a second argument.

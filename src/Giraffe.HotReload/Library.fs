@@ -1,4 +1,5 @@
 namespace Giraffe.HotReload
+open Microsoft.AspNetCore.Hosting
 
 module rec LiveUpdate =
   open System
@@ -15,10 +16,13 @@ module rec LiveUpdate =
   type Settings = {
     /// The route where the hot reload tool should post.
     UpdateRoute : string
+    /// The route for the websocket that will refresh the browser.
+    WebsocketRefreshRoute : string
   }
     with
       static member Default = {
         UpdateRoute = "/update"
+        WebsocketRefreshRoute = "/ws"
       }
 
   let welcomePage: XmlNode =
@@ -256,7 +260,7 @@ module Extensions =
 
       let registerSocket (ctx: HttpContext) (next: System.Func<Task>) =
         task {
-          if ctx.Request.Path = PathString.op_Implicit"/ws" then
+          if ctx.Request.Path = PathString.op_Implicit settings.WebsocketRefreshRoute then
             if ctx.WebSockets.IsWebSocketRequest
             then
               let! socket = ctx.WebSockets.AcceptWebSocketAsync()
@@ -280,4 +284,5 @@ module Extensions =
 
     member this.UseGiraffeWithHotReload(handler: HttpHandler) =
       this.UseGiraffeWithHotReload(handler, LiveUpdate.Settings.Default)
+
 
