@@ -14,16 +14,16 @@
 <col />
 </colgroup>
 <tbody>
-<tr><th>Generated on:</th><td>2/19/19 - 9:40:18 PM</td></tr>
+<tr><th>Generated on:</th><td>2/25/19 - 8:14:19 PM</td></tr>
 <tr><th>Parser:</th><td>MultiReportParser (3x OpenCoverParser)</td></tr>
 <tr><th>Assemblies:</th><td>1</td></tr>
 <tr><th>Classes:</th><td>8</td></tr>
 <tr><th>Files:</th><td>6</td></tr>
-<tr><th>Covered lines:</th><td>76</td></tr>
-<tr><th>Uncovered lines:</th><td>1060</td></tr>
-<tr><th>Coverable lines:</th><td>1136</td></tr>
-<tr><th>Total lines:</th><td>2978</td></tr>
-<tr><th>Line coverage:</th><td>6.6%</td></tr>
+<tr><th>Covered lines:</th><td>90</td></tr>
+<tr><th>Uncovered lines:</th><td>1248</td></tr>
+<tr><th>Coverable lines:</th><td>1338</td></tr>
+<tr><th>Total lines:</th><td>3001</td></tr>
+<tr><th>Line coverage:</th><td>6.7%</td></tr>
 <tr><th>Branch coverage:</th><td>0.1%</td></tr>
 </tbody>
 </table>
@@ -48,15 +48,36 @@
 <tbody>
 <tr>
 <td>Giraffe.HotReload</td>
-<td><a href="Giraffe.HotReload_ProcessCommandLine.htm">FSharp.Compiler.PortaCode.ProcessCommandLine</a></td>
-<td title="System.Int32 FSharp.Compiler.PortaCode.ProcessCommandLine/fsharpArgs@33::GenerateNext(System.Collections.Generic.IEnumerable`1&lt;System.String&gt;&amp;)"><a href="Giraffe.HotReload_ProcessCommandLine.htm#file0_line33">GenerateNext(...)</a></td><td class="lightgreen right">29</td>
-<td class="lightred right">262144</td>
+<td><a href="Giraffe.HotReload_Interpreter.htm">FSharp.Compiler.PortaCode.Interpreter</a></td>
+<td title="FSharp.Compiler.PortaCode.Interpreter/Value FSharp.Compiler.PortaCode.Interpreter/EvalContext::EvalExpr(FSharp.Compiler.PortaCode.Interpreter/Env,FSharp.Compiler.PortaCode.CodeModel/DExpr)"><a href="Giraffe.HotReload_Interpreter.htm#file0_line616">EvalExpr(...)</a></td><td class="lightred right">59</td>
+<td class="lightred right">150994944</td>
+<td class="lightgreen right">0</td>
+</tr>
+<tr>
+<td>Giraffe.HotReload</td>
+<td><a href="Giraffe.HotReload_ProjectCracker.htm">FSharpDaemon.ProjectCracker</a></td>
+<td title="System.Tuple`3&lt;System.String,Microsoft.FSharp.Compiler.SourceCodeServices.FSharpProjectOptions,Microsoft.FSharp.Collections.FSharpList`1&lt;System.Tuple`2&lt;System.String,System.String&gt;&gt;&gt; FSharpDaemon.ProjectCracker/projInfoOf@237::Invoke(Microsoft.FSharp.Collections.FSharpList`1&lt;System.Tuple`2&lt;System.String,System.String&gt;&gt;,System.String)"><a href="Giraffe.HotReload_ProjectCracker.htm#file0_line237">Invoke(...)</a></td><td class="lightgreen right">30</td>
+<td class="lightred right">2949120</td>
+<td class="lightgreen right">0</td>
+</tr>
+<tr>
+<td>Giraffe.HotReload</td>
+<td><a href="Giraffe.HotReload_Interpreter.htm">FSharp.Compiler.PortaCode.Interpreter</a></td>
+<td title="FSharp.Compiler.PortaCode.Interpreter/Value FSharp.Compiler.PortaCode.Interpreter/EvalContext::EvalCall(FSharp.Compiler.PortaCode.Interpreter/Env,Microsoft.FSharp.Core.FSharpOption`1&lt;FSharp.Compiler.PortaCode.CodeModel/DExpr&gt;,FSharp.Compiler.PortaCode.CodeModel/DMemberRef,FSharp.Compiler.PortaCode.CodeModel/DType[],FSharp.Compiler.PortaCode.CodeModel/DType[],FSharp.Compiler.PortaCode.CodeModel/DExpr[])"><a href="Giraffe.HotReload_Interpreter.htm#file0_line887">EvalCall(...)</a></td><td class="lightred right">258</td>
+<td class="lightred right">913920</td>
 <td class="lightgreen right">0</td>
 </tr>
 <tr>
 <td>Giraffe.HotReload</td>
 <td><a href="Giraffe.HotReload_ProcessCommandLine.htm">FSharp.Compiler.PortaCode.ProcessCommandLine</a></td>
-<td title="System.Int32 FSharp.Compiler.PortaCode.ProcessCommandLine::ProcessCommandLine(System.String[])"><a href="Giraffe.HotReload_ProcessCommandLine.htm#file0_line21">ProcessCommandLine(...)</a></td><td class="lightgreen right">20</td>
+<td title="System.Int32 FSharp.Compiler.PortaCode.ProcessCommandLine::ProcessCommandLine(System.String[])"><a href="Giraffe.HotReload_ProcessCommandLine.htm#file0_line21">ProcessCommandLine(...)</a></td><td class="lightgreen right">22</td>
+<td class="lightred right">524288</td>
+<td class="lightgreen right">0</td>
+</tr>
+<tr>
+<td>Giraffe.HotReload</td>
+<td><a href="Giraffe.HotReload_ProcessCommandLine.htm">FSharp.Compiler.PortaCode.ProcessCommandLine</a></td>
+<td title="System.Int32 FSharp.Compiler.PortaCode.ProcessCommandLine/fsharpArgs@33::GenerateNext(System.Collections.Generic.IEnumerable`1&lt;System.String&gt;&amp;)"><a href="Giraffe.HotReload_ProcessCommandLine.htm#file0_line33">GenerateNext(...)</a></td><td class="lightred right">41</td>
 <td class="lightred right">131072</td>
 <td class="lightgreen right">0</td>
 </tr>
@@ -64,49 +85,42 @@
 <td>Giraffe.HotReload</td>
 <td><a href="Giraffe.HotReload_Interpreter.htm">FSharp.Compiler.PortaCode.Interpreter</a></td>
 <td title="FSharp.Compiler.PortaCode.Interpreter/Value FSharp.Compiler.PortaCode.Interpreter::binOp(System.String,System.Object[],Microsoft.FSharp.Core.FSharpFunc`2&lt;System.SByte,Microsoft.FSharp.Core.FSharpFunc`2&lt;System.SByte,a&gt;&gt;,Microsoft.FSharp.Core.FSharpFunc`2&lt;System.Int16,Microsoft.FSharp.Core.FSharpFunc`2&lt;System.Int16,b&gt;&gt;,Microsoft.FSharp.Core.FSharpFunc`2&lt;System.Int32,Microsoft.FSharp.Core.FSharpFunc`2&lt;System.Int32,c&gt;&gt;,Microsoft.FSharp.Core.FSharpFunc`2&lt;System.Int64,Microsoft.FSharp.Core.FSharpFunc`2&lt;System.Int64,d&gt;&gt;,Microsoft.FSharp.Core.FSharpFunc`2&lt;System.Byte,Microsoft.FSharp.Core.FSharpFunc`2&lt;System.Byte,e&gt;&gt;,Microsoft.FSharp.Core.FSharpFunc`2&lt;System.UInt16,Microsoft.FSharp.Core.FSharpFunc`2&lt;System.UInt16,f&gt;&gt;,Microsoft.FSharp.Core.FSharpFunc`2&lt;System.UInt32,Microsoft.FSharp.Core.FSharpFunc`2&lt;System.UInt32,g&gt;&gt;,Microsoft.FSharp.Core.FSharpFunc`2&lt;System.UInt64,Microsoft.FSharp.Core.FSharpFunc`2&lt;System.UInt64,h&gt;&gt;,Microsoft.FSharp.Core.FSharpFunc`2&lt;System.Single,Microsoft.FSharp.Core.FSharpFunc`2&lt;System.Single,i&gt;&gt;,Microsoft.FSharp.Core.FSharpFunc`2&lt;System.Double,Microsoft.FSharp.Core.FSharpFunc`2&lt;System.Double,j&gt;&gt;,Microsoft.FSharp.Core.FSharpFunc`2&lt;System.Decimal,Microsoft.FSharp.Core.FSharpFunc`2&lt;System.Decimal,k&gt;&gt;)"><a href="Giraffe.HotReload_Interpreter.htm#file0_line164">binOp(...)</a></td><td class="lightgreen right">23</td>
-<td class="lightred right">45056</td>
+<td class="lightred right">40960</td>
 <td class="lightgreen right">0</td>
 </tr>
 <tr>
 <td>Giraffe.HotReload</td>
-<td><a href="Giraffe.HotReload_Interpreter.htm">FSharp.Compiler.PortaCode.Interpreter</a></td>
-<td title="FSharp.Compiler.PortaCode.Interpreter/Value FSharp.Compiler.PortaCode.Interpreter/EvalContext::EvalCall(FSharp.Compiler.PortaCode.Interpreter/Env,Microsoft.FSharp.Core.FSharpOption`1&lt;FSharp.Compiler.PortaCode.CodeModel/DExpr&gt;,FSharp.Compiler.PortaCode.CodeModel/DMemberRef,FSharp.Compiler.PortaCode.CodeModel/DType[],FSharp.Compiler.PortaCode.CodeModel/DType[],FSharp.Compiler.PortaCode.CodeModel/DExpr[])"><a href="Giraffe.HotReload_Interpreter.htm#file0_line887">EvalCall(...)</a></td><td class="lightred right">48</td>
-<td class="lightred right">8400</td>
+<td><a href="Giraffe.HotReload_ProcessCommandLine.htm">FSharp.Compiler.PortaCode.ProcessCommandLine</a></td>
+<td title="System.String FSharp.Compiler.PortaCode.ProcessCommandLine/formatValue@243::Invoke(System.Object)"><a href="Giraffe.HotReload_ProcessCommandLine.htm#file0_line243">Invoke(...)</a></td><td class="lightgreen right">13</td>
+<td class="lightred right">4096</td>
 <td class="lightgreen right">0</td>
 </tr>
 <tr>
 <td>Giraffe.HotReload</td>
 <td><a href="Giraffe.HotReload_Interpreter.htm">FSharp.Compiler.PortaCode.Interpreter</a></td>
 <td title="FSharp.Compiler.PortaCode.Interpreter/Value FSharp.Compiler.PortaCode.Interpreter::shiftOp(System.String,System.Object[],Microsoft.FSharp.Core.FSharpFunc`2&lt;System.SByte,Microsoft.FSharp.Core.FSharpFunc`2&lt;System.Int32,a&gt;&gt;,Microsoft.FSharp.Core.FSharpFunc`2&lt;System.Int16,Microsoft.FSharp.Core.FSharpFunc`2&lt;System.Int32,b&gt;&gt;,Microsoft.FSharp.Core.FSharpFunc`2&lt;System.Int32,Microsoft.FSharp.Core.FSharpFunc`2&lt;System.Int32,c&gt;&gt;,Microsoft.FSharp.Core.FSharpFunc`2&lt;System.Int64,Microsoft.FSharp.Core.FSharpFunc`2&lt;System.Int32,d&gt;&gt;,Microsoft.FSharp.Core.FSharpFunc`2&lt;System.Byte,Microsoft.FSharp.Core.FSharpFunc`2&lt;System.Int32,e&gt;&gt;,Microsoft.FSharp.Core.FSharpFunc`2&lt;System.UInt16,Microsoft.FSharp.Core.FSharpFunc`2&lt;System.Int32,f&gt;&gt;,Microsoft.FSharp.Core.FSharpFunc`2&lt;System.UInt32,Microsoft.FSharp.Core.FSharpFunc`2&lt;System.Int32,g&gt;&gt;,Microsoft.FSharp.Core.FSharpFunc`2&lt;System.UInt64,Microsoft.FSharp.Core.FSharpFunc`2&lt;System.Int32,h&gt;&gt;)"><a href="Giraffe.HotReload_Interpreter.htm#file0_line179">shiftOp(...)</a></td><td class="lightgreen right">17</td>
-<td class="lightred right">4096</td>
+<td class="lightred right">3584</td>
 <td class="lightgreen right">0</td>
 </tr>
 <tr>
 <td>Giraffe.HotReload</td>
 <td><a href="Giraffe.HotReload_Interpreter.htm">FSharp.Compiler.PortaCode.Interpreter</a></td>
 <td title="FSharp.Compiler.PortaCode.Interpreter/Value FSharp.Compiler.PortaCode.Interpreter::logicBinOp(System.String,System.Object[],Microsoft.FSharp.Core.FSharpFunc`2&lt;System.SByte,Microsoft.FSharp.Core.FSharpFunc`2&lt;System.SByte,a&gt;&gt;,Microsoft.FSharp.Core.FSharpFunc`2&lt;System.Int16,Microsoft.FSharp.Core.FSharpFunc`2&lt;System.Int16,b&gt;&gt;,Microsoft.FSharp.Core.FSharpFunc`2&lt;System.Int32,Microsoft.FSharp.Core.FSharpFunc`2&lt;System.Int32,c&gt;&gt;,Microsoft.FSharp.Core.FSharpFunc`2&lt;System.Int64,Microsoft.FSharp.Core.FSharpFunc`2&lt;System.Int64,d&gt;&gt;,Microsoft.FSharp.Core.FSharpFunc`2&lt;System.Byte,Microsoft.FSharp.Core.FSharpFunc`2&lt;System.Byte,e&gt;&gt;,Microsoft.FSharp.Core.FSharpFunc`2&lt;System.UInt16,Microsoft.FSharp.Core.FSharpFunc`2&lt;System.UInt16,f&gt;&gt;,Microsoft.FSharp.Core.FSharpFunc`2&lt;System.UInt32,Microsoft.FSharp.Core.FSharpFunc`2&lt;System.UInt32,g&gt;&gt;,Microsoft.FSharp.Core.FSharpFunc`2&lt;System.UInt64,Microsoft.FSharp.Core.FSharpFunc`2&lt;System.UInt64,h&gt;&gt;)"><a href="Giraffe.HotReload_Interpreter.htm#file0_line191">logicBinOp(...)</a></td><td class="lightgreen right">17</td>
-<td class="lightred right">4096</td>
-<td class="lightgreen right">0</td>
-</tr>
-<tr>
-<td>Giraffe.HotReload</td>
-<td><a href="Giraffe.HotReload_Interpreter.htm">FSharp.Compiler.PortaCode.Interpreter</a></td>
-<td title="FSharp.Compiler.PortaCode.Interpreter/Value FSharp.Compiler.PortaCode.Interpreter/EvalContext::EvalExpr(FSharp.Compiler.PortaCode.Interpreter/Env,FSharp.Compiler.PortaCode.CodeModel/DExpr)"><a href="Giraffe.HotReload_Interpreter.htm#file0_line788">EvalExpr(...)</a></td><td class="lightred right">46</td>
-<td class="lightred right">1024</td>
-<td class="lightgreen right">0</td>
-</tr>
-<tr>
-<td>Giraffe.HotReload</td>
-<td><a href="Giraffe.HotReload_ProcessCommandLine.htm">FSharp.Compiler.PortaCode.ProcessCommandLine</a></td>
-<td title="System.String FSharp.Compiler.PortaCode.ProcessCommandLine/formatValue@243::Invoke(System.Object)"><a href="Giraffe.HotReload_ProcessCommandLine.htm#file0_line245">Invoke(...)</a></td><td class="lightgreen right">13</td>
-<td class="lightred right">1024</td>
+<td class="lightred right">3584</td>
 <td class="lightgreen right">0</td>
 </tr>
 <tr>
 <td>Giraffe.HotReload</td>
 <td><a href="Giraffe.HotReload_LiveUpdate.htm">Giraffe.HotReload.LiveUpdate</a></td>
-<td title="Microsoft.FSharp.Core.FSharpResult`2&lt;Microsoft.FSharp.Core.FSharpFunc`2&lt;Microsoft.FSharp.Core.FSharpFunc`2&lt;Microsoft.AspNetCore.Http.HttpContext,System.Threading.Tasks.Task`1&lt;Microsoft.FSharp.Core.FSharpOption`1&lt;Microsoft.AspNetCore.Http.HttpContext&gt;&gt;&gt;,Microsoft.FSharp.Core.FSharpFunc`2&lt;Microsoft.AspNetCore.Http.HttpContext,System.Threading.Tasks.Task`1&lt;Microsoft.FSharp.Core.FSharpOption`1&lt;Microsoft.AspNetCore.Http.HttpContext&gt;&gt;&gt;&gt;,System.String&gt; Giraffe.HotReload.LiveUpdate/tryResolveAsFunction@109-1::Invoke(System.Tuple`2&lt;FSharp.Compiler.PortaCode.CodeModel/DMemberDef,FSharp.Compiler.PortaCode.CodeModel/DExpr&gt;)"><a href="Giraffe.HotReload_LiveUpdate.htm#file0_line110">Invoke(...)</a></td><td class="lightgreen right">10</td>
+<td title="Microsoft.FSharp.Core.FSharpResult`2&lt;Microsoft.FSharp.Core.FSharpFunc`2&lt;Microsoft.FSharp.Core.FSharpFunc`2&lt;Microsoft.AspNetCore.Http.HttpContext,System.Threading.Tasks.Task`1&lt;Microsoft.FSharp.Core.FSharpOption`1&lt;Microsoft.AspNetCore.Http.HttpContext&gt;&gt;&gt;,Microsoft.FSharp.Core.FSharpFunc`2&lt;Microsoft.AspNetCore.Http.HttpContext,System.Threading.Tasks.Task`1&lt;Microsoft.FSharp.Core.FSharpOption`1&lt;Microsoft.AspNetCore.Http.HttpContext&gt;&gt;&gt;&gt;,System.String&gt; Giraffe.HotReload.LiveUpdate/tryResolveAsFunction@125::Invoke(Microsoft.Extensions.Logging.ILogger,Microsoft.FSharp.Core.FSharpFunc`2&lt;System.Type,System.Object&gt;,System.Tuple`2&lt;FSharp.Compiler.PortaCode.CodeModel/DMemberDef,FSharp.Compiler.PortaCode.CodeModel/DExpr&gt;)"><a href="Giraffe.HotReload_LiveUpdate.htm#file0_line125">Invoke(...)</a></td><td class="lightgreen right">10</td>
 <td class="lightred right">320</td>
+<td class="lightgreen right">0</td>
+</tr>
+<tr>
+<td>Giraffe.HotReload</td>
+<td><a href="Giraffe.HotReload_Interpreter.htm">FSharp.Compiler.PortaCode.Interpreter</a></td>
+<td title="System.Int32 FSharp.Compiler.PortaCode.Interpreter/TryEvalDecls@572::GenerateNext(System.Collections.Generic.IEnumerable`1&lt;System.Tuple`2&lt;System.Exception,Microsoft.FSharp.Collections.FSharpList`1&lt;FSharp.Compiler.PortaCode.CodeModel/DRange&gt;&gt;&gt;&amp;)"><a href="Giraffe.HotReload_Interpreter.htm#file0_line572">GenerateNext(...)</a></td><td class="lightgreen right">20</td>
+<td class="lightred right">256</td>
 <td class="lightgreen right">0</td>
 </tr>
 </tbody>
@@ -130,17 +144,17 @@
 </colgroup>
 <thead><tr><th>Name</th><th class="right">Covered</th><th class="right">Uncovered</th><th class="right">Coverable</th><th class="right">Total</th><th class="center" colspan="2">Line coverage</th><th class="center" colspan="2">Branch coverage</th></tr></thead>
 <tbody>
-<tr><th>Giraffe.HotReload</th><th class="right">76</th><th class="right">1060</th><th class="right">1136</th><th class="right">3249</th><th title="LineCoverage" class="right">6.6%</th><th><table class="coverage"><tr><td class="green covered7">&nbsp;</td><td class="red covered93">&nbsp;</td></tr></table></th><th class="right">0.1%</th><th><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></th></tr>
+<tr><th>Giraffe.HotReload</th><th class="right">90</th><th class="right">1248</th><th class="right">1338</th><th class="right">3295</th><th title="LineCoverage" class="right">6.7%</th><th><table class="coverage"><tr><td class="green covered7">&nbsp;</td><td class="red covered93">&nbsp;</td></tr></table></th><th class="right">0.1%</th><th><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></th></tr>
 <tr><td><a href="Giraffe.HotReload_CodeModel.htm">FSharp.Compiler.PortaCode.CodeModel</a></td><td class="right">0</td><td class="right">6</td><td class="right">6</td><td class="right">135</td><td title="LineCoverage" class="right">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td><td class="right">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td></tr>
-<tr><td><a href="Giraffe.HotReload_FromCompilerService.htm">FSharp.Compiler.PortaCode.FromCompilerService</a></td><td class="right">0</td><td class="right">33</td><td class="right">33</td><td class="right">366</td><td title="LineCoverage" class="right">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td><td class="right">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td></tr>
-<tr><td><a href="Giraffe.HotReload_Interpreter.htm">FSharp.Compiler.PortaCode.Interpreter</a></td><td class="right">45</td><td class="right">429</td><td class="right">474</td><td class="right">1257</td><td title="LineCoverage" class="right">9.4%</td><td><table class="coverage"><tr><td class="green covered9">&nbsp;</td><td class="red covered91">&nbsp;</td></tr></table></td><td class="right">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td></tr>
-<tr><td><a href="Giraffe.HotReload_ProcessCommandLine.htm">FSharp.Compiler.PortaCode.ProcessCommandLine</a></td><td class="right">0</td><td class="right">317</td><td class="right">317</td><td class="right">469</td><td title="LineCoverage" class="right">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td><td class="right">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td></tr>
-<tr><td><a href="Giraffe.HotReload_ProjectCracker.htm">FSharpDaemon.ProjectCracker</a></td><td class="right">0</td><td class="right">155</td><td class="right">155</td><td class="right">480</td><td title="LineCoverage" class="right">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td><td class="right">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td></tr>
-<tr><td><a href="Giraffe.HotReload_Extensions.htm">Giraffe.HotReload.Extensions</a></td><td class="right">21</td><td class="right">11</td><td class="right">32</td><td class="right">271</td><td title="LineCoverage" class="right">65.6%</td><td><table class="coverage"><tr><td class="green covered66">&nbsp;</td><td class="red covered34">&nbsp;</td></tr></table></td><td class="right">16.6%</td><td><table class="coverage"><tr><td class="green covered17">&nbsp;</td><td class="red covered83">&nbsp;</td></tr></table></td></tr>
-<tr><td><a href="Giraffe.HotReload_LiveUpdate.htm">Giraffe.HotReload.LiveUpdate</a></td><td class="right">10</td><td class="right">109</td><td class="right">119</td><td class="right">271</td><td title="LineCoverage" class="right">8.4%</td><td><table class="coverage"><tr><td class="green covered8">&nbsp;</td><td class="red covered92">&nbsp;</td></tr></table></td><td class="right">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td></tr>
+<tr><td><a href="Giraffe.HotReload_FromCompilerService.htm">FSharp.Compiler.PortaCode.FromCompilerService</a></td><td class="right">0</td><td class="right">57</td><td class="right">57</td><td class="right">366</td><td title="LineCoverage" class="right">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td><td class="right">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td></tr>
+<tr><td><a href="Giraffe.HotReload_Interpreter.htm">FSharp.Compiler.PortaCode.Interpreter</a></td><td class="right">45</td><td class="right">518</td><td class="right">563</td><td class="right">1257</td><td title="LineCoverage" class="right">7.9%</td><td><table class="coverage"><tr><td class="green covered8">&nbsp;</td><td class="red covered92">&nbsp;</td></tr></table></td><td class="right">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td></tr>
+<tr><td><a href="Giraffe.HotReload_ProcessCommandLine.htm">FSharp.Compiler.PortaCode.ProcessCommandLine</a></td><td class="right">0</td><td class="right">328</td><td class="right">328</td><td class="right">469</td><td title="LineCoverage" class="right">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td><td class="right">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td></tr>
+<tr><td><a href="Giraffe.HotReload_ProjectCracker.htm">FSharpDaemon.ProjectCracker</a></td><td class="right">0</td><td class="right">212</td><td class="right">212</td><td class="right">480</td><td title="LineCoverage" class="right">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td><td class="right">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td></tr>
+<tr><td><a href="Giraffe.HotReload_Extensions.htm">Giraffe.HotReload.Extensions</a></td><td class="right">21</td><td class="right">17</td><td class="right">38</td><td class="right">294</td><td title="LineCoverage" class="right">55.2%</td><td><table class="coverage"><tr><td class="green covered55">&nbsp;</td><td class="red covered45">&nbsp;</td></tr></table></td><td class="right">16.6%</td><td><table class="coverage"><tr><td class="green covered17">&nbsp;</td><td class="red covered83">&nbsp;</td></tr></table></td></tr>
+<tr><td><a href="Giraffe.HotReload_LiveUpdate.htm">Giraffe.HotReload.LiveUpdate</a></td><td class="right">24</td><td class="right">110</td><td class="right">134</td><td class="right">294</td><td title="LineCoverage" class="right">17.9%</td><td><table class="coverage"><tr><td class="green covered18">&nbsp;</td><td class="red covered82">&nbsp;</td></tr></table></td><td class="right">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td></tr>
 <tr><td><a href="Giraffe.HotReload_AssemblyVersionInformation.htm">System.AssemblyVersionInformation</a></td><td class="right">0</td><td class="right">0</td><td class="right">0</td><td class="right">0</td><td title="MethodCoverage" class="right"></td><td><table class="coverage"><tr><td class="gray covered100">&nbsp;</td></tr></table></td><td class="right"></td><td><table class="coverage"><tr><td class="gray covered100">&nbsp;</td></tr></table></td></tr>
 </tbody>
 </table>
-<div class="footer">Generated by: ReportGenerator 4.0.0.0<br />2/19/19 - 9:40:18 PM<br /><a href="https://github.com/danielpalme/ReportGenerator">GitHub</a> | <a href="http://www.palmmedia.de">www.palmmedia.de</a></div></div></div>
+<div class="footer">Generated by: ReportGenerator 4.0.0.0<br />2/25/19 - 8:14:19 PM<br /><a href="https://github.com/danielpalme/ReportGenerator">GitHub</a> | <a href="http://www.palmmedia.de">www.palmmedia.de</a></div></div></div>
 <script type="text/javascript" src="combined.js"></script>
 </body></html>

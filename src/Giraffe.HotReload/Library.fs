@@ -18,11 +18,14 @@ module rec LiveUpdate =
     UpdateRoute : string
     /// The route for the websocket that will refresh the browser.
     WebsocketRefreshRoute : string
+    /// The name of the Giraffe HttpHandler member that will be searched for
+    WebAppMemberName : string
   }
     with
       static member Default = {
         UpdateRoute = "/update"
         WebsocketRefreshRoute = "/ws"
+        WebAppMemberName = "webApp"
       }
 
   let welcomePage: XmlNode =
@@ -43,11 +46,11 @@ module rec LiveUpdate =
         | _ -> None)
 
 
-  let handleUpdate (middleware: HotReloadGiraffeMiddleware) : HttpHandler =
+  let handleUpdate (middleware: HotReloadGiraffeMiddleware) memberName : HttpHandler =
     let error message = setStatusCode 400 >=> json { message = message }
     let interpreter = EvalContext(System.Reflection.Assembly.Load)
 
-    let tryFindWebAppInFile (fileName, file) = tryFindMemberByName "webApp" file.Code
+    let tryFindWebAppInFile (fileName, file) = tryFindMemberByName memberName file.Code
 
     let tryFindWebApp (files: (string * DFile) []) = files |> Array.filter (fun (fileName, file) -> box file.Code <> null) |> Array.choose tryFindWebAppInFile |> Array.tryHead
 
@@ -182,8 +185,11 @@ module rec LiveUpdate =
             logger.LogError errMsg
             error errMsg
         | None ->
-          logger.LogError("Couldn't find a member called `webApp` with signature `Giraffe.HttpHandler`")
-          error "Couldn't find a member called `webApp` with signature `Giraffe.HttpHandler`"
+          let errMsg = sprintf """Couldn't find a member called `%s` that was either
+  a) a `Giraffe.HttpHandler`, or
+  b) a function of N parameters that returns a `Giraffe.HttpHandler` where each parameter can be uniquely resolved from the dependency injection container.""" memberName
+          logger.LogError errMsg
+          error errMsg
 
     fun next ctx -> task {
       let logger = ctx.GetLogger<HotReloadGiraffeMiddleware>()
@@ -194,7 +200,7 @@ module rec LiveUpdate =
   let updater (settings : Settings) middleware: HttpHandler =
     route settings.UpdateRoute >=> choose [
       GET >=> htmlView welcomePage
-      PUT >=> handleUpdate middleware
+      PUT >=> handleUpdate middleware settings.WebAppMemberName
     ]
 
   /// A middleware that delegates to GiraffeMiddlware, but updates the middleware when the HttpHandler is updated

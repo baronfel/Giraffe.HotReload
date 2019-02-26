@@ -28,11 +28,14 @@ The current settings that can be configured are listed below.
     UpdateRoute : string
     /// The route for the websocket that will refresh the browser.
     WebsocketRefreshRoute : string
+    /// The name of the Giraffe HttpHandler member that will be searched for
+    WebAppMemberName : string
   }
     with
       static member Default = {
         UpdateRoute = "/update"
         WebsocketRefreshRoute = "/ws"
+        WebAppMemberName = "webApp"
       }
 ```
 
@@ -47,11 +50,11 @@ app.UseGiraffeWithHotReload(webApp,settings)
 
 #### Triggering the auto-reload of your Giraffe app
 
-The code looks for either a static HttpHandler value or a HttpHandler-generating-function called `webApp` in your main application code.
+The code looks for either a static HttpHandler value or a HttpHandler-generating-function called `webApp` (or another name that you provide in Settings) in your main application code.
 
-If the value `webApp: HttpHandler` is found, that value is passed into the HotReload middleware immediately.
+If the value `webApp: HttpHandler` (or another name that you provide in Settings) is found, that value is passed into the HotReload middleware immediately.
 
-If a member of the form `webApp: 'dep1 -> ... -> 'depN -> HttpHandler` is found, the parameters are resolved from the `HttpContext.RequestServices` service locator on your behalf, passed into the function to get the `HttpHandler`, and then that value is passed into the HotReload middleware.
+If a member of the form `webApp: 'dep1 -> ... -> 'depN -> HttpHandler` (or another name that you provide in Settings) is found, the parameters are resolved from the `HttpContext.RequestServices` service locator on your behalf, passed into the function to get the `HttpHandler`, and then that value is passed into the HotReload middleware.
 
 Log messages for both of these traversal paths will be written to the ASP.Net Core Logging Infrastructure under the `Giraffe.HotReload.LiveUpdate.HotReloadGiraffeMiddleware` logger name,
 
