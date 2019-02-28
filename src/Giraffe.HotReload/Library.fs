@@ -1,6 +1,4 @@
 namespace Giraffe.HotReload
-open Microsoft.Extensions.Primitives
-open Microsoft.Extensions.FileProviders
 module rec LiveUpdate =
   open System
   open System.Reflection
@@ -15,6 +13,8 @@ module rec LiveUpdate =
   open Microsoft.AspNetCore.Hosting
   open System.Net.WebSockets
   open System.IO
+  open Microsoft.Extensions.Primitives
+  open Microsoft.Extensions.FileProviders
 
   type Settings = {
     /// The route where the hot reload tool should post.
@@ -23,12 +23,15 @@ module rec LiveUpdate =
     WebsocketRefreshRoute : string
     /// The name of the Giraffe HttpHandler member that will be searched for
     WebAppMemberName : string
+    /// Static file providers for anything not under webroot
+    StaticFileProviders : IFileProvider list
   }
     with
       static member Default = {
         UpdateRoute = "/update"
         WebsocketRefreshRoute = "/ws"
         WebAppMemberName = "webApp"
+        StaticFileProviders = []
       }
 
   let welcomePage: XmlNode =
@@ -236,9 +239,8 @@ module rec LiveUpdate =
           |> ignore
 
         let filewatchers =
-          [
-            hostEnv.WebRootFileProvider
-          ]
+          hostEnv.WebRootFileProvider :: settings.StaticFileProviders
+
         do filewatchers |> List.iter(addWatchHandlers)
         let mutable innerMiddleware = Middleware.GiraffeMiddleware(next, merge handler, loggerFactory)
 
