@@ -54,7 +54,7 @@ socket.onerror = function(error) {
                 title []  [ encodedText "ReloadSample" ]
                 link [ _rel  "stylesheet"
                        _type "text/css"
-                       _href "/main.css" ]
+                       _href "/css/main.css" ]
             ]
             body [] (content @ [wsConnection])
         ]
@@ -123,13 +123,13 @@ let configureLogging (builder : ILoggingBuilder) =
 
 [<EntryPoint>]
 let main _ =
-    let contentRoot = Directory.GetCurrentDirectory()
-    let webRoot     = Path.Combine(contentRoot, "WebRoot")
+    // let contentRoot = Directory.GetCurrentDirectory()
+    // let webRoot     = Path.Combine(contentRoot, "WebRoot")
     WebHostBuilder()
         .UseKestrel()
-        .UseContentRoot(contentRoot)
+        // .UseContentRoot(contentRoot)
         .UseIISIntegration()
-        .UseWebRoot(webRoot)
+        // .UseWebRoot(webRoot)
         .Configure(Action<IApplicationBuilder> configureApp)
         .ConfigureServices(configureServices)
         .ConfigureLogging(configureLogging)
