@@ -11,26 +11,23 @@
     <Compile Include="Program.fs" />
   </ItemGroup>
   <ItemGroup>
-    <WwwRootFiles Include="$(MSBuildProjectDirectory)/wwwroot/**/*" />
-    <Watch Include="@(WwwRootFiles)" />
+    <WebRoot Include="$(MSBuildProjectDirectory)/wwwroot/**/*" />
+    <Watch Include="@(WebRoot)" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="paket.references" />
     <None Include="web.config" CopyToOutputDirectory="PreserveNewest" />
-    <Content Include="WebRoot\**\*">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="@(WwwRootFiles)">
+    <Content Include="@(WebRoot)">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\Giraffe.HotReload\Giraffe.HotReload.fsproj" />
   </ItemGroup>
-  <Target Name="Copywwwroot">
+  <Target Name="CopyWebroot">
       <Copy
-          SourceFiles="@(WwwRootFiles)"
-          DestinationFiles="@(WwwRootFiles->'$(OutDir)\wwwroot\%(RecursiveDir)%(Filename)%(Extension)')"
+          SourceFiles="@(WebRoot)"
+          DestinationFiles="@(WebRoot->'$(OutDir)\wwwroot\%(RecursiveDir)%(Filename)%(Extension)')"
       />
     </Target>
   <Import Project="..\..\.paket\Paket.Restore.targets" />

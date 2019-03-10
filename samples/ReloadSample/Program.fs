@@ -124,12 +124,12 @@ let configureLogging (builder : ILoggingBuilder) =
 [<EntryPoint>]
 let main _ =
     // let contentRoot = Directory.GetCurrentDirectory()
-    // let webRoot     = Path.Combine(contentRoot, "WebRoot")
+    let webroot     = "wwwroot"
     WebHostBuilder()
         .UseKestrel()
         // .UseContentRoot(contentRoot)
         .UseIISIntegration()
-        // .UseWebRoot(webRoot)
+        .UseWebRoot(webroot)
         .Configure(Action<IApplicationBuilder> configureApp)
         .ConfigureServices(configureServices)
         .ConfigureLogging(configureLogging)

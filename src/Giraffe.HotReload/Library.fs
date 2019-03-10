@@ -216,7 +216,6 @@ module rec LiveUpdate =
                                   sockets: ResizeArray<System.Net.WebSockets.WebSocket>,
                                   settings : Settings,
                                   loggerFactory: ILoggerFactory) as self =
-        let foo = hostEnv.ContentRootPath
         let logger = loggerFactory.CreateLogger<HotReloadGiraffeMiddleware>()
         let merge handler = choose [LiveUpdate.updater settings self; handler ]
         let refreshCommand = "refresh" |> System.Text.Encoding.UTF8.GetBytes |> ArraySegment
@@ -230,18 +229,20 @@ module rec LiveUpdate =
           )
           |> System.Threading.Tasks.Task.WhenAll
           |> ignore
+
         let handleFileChange () =
           logger.LogDebug("Static content file changed. Sending refresh commands")
           notifyAllSockets sockets
+
         let addWatchHandlers (fileProvider : IFileProvider) =
           let getWatchToken _ = fileProvider.Watch("**.*")
           ChangeToken.OnChange(Func<_>(getWatchToken), Action(handleFileChange))
           |> ignore
 
-        let filewatchers =
-          hostEnv.WebRootFileProvider :: settings.StaticFileProviders
+        let filewatchers = hostEnv.WebRootFileProvider :: settings.StaticFileProviders
 
         do filewatchers |> List.iter(addWatchHandlers)
+
         let mutable innerMiddleware = Middleware.GiraffeMiddleware(next, merge handler, loggerFactory)
 
         member __.Invoke (ctx: HttpContext) = innerMiddleware.Invoke ctx
