@@ -1,11 +1,9 @@
 FSharp.Core
 Microsoft.SourceLink.GitHub
-Microsoft.AspNetCore.StaticFiles
 Giraffe
 FSharp.Compiler.Service
 Dotnet.ProjInfo
 Microsoft.AspNetCore.WebSockets
-Microsoft.AspNetCore.Hosting.Abstractions
 
 File: ProjectCracker.fs Portacode
 File: CodeModel.fs Portacode
