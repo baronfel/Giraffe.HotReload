@@ -127,7 +127,6 @@ let main _ =
     let webroot     = "wwwroot"
     WebHostBuilder()
         .UseKestrel()
-        // .UseContentRoot(contentRoot)
         .UseIISIntegration()
         .UseWebRoot(webroot)
         .Configure(Action<IApplicationBuilder> configureApp)
