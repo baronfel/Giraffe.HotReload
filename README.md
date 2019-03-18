@@ -3,20 +3,69 @@
 A repo to explore using [FSharp.Compiler.Portacode](https://github.com/fsprojects/FSharp.Compiler.PortaCode) for hot-reloading Giraffe Views
 
 
-#### Enabling Hot-Reload in your project
+#### Enabling Giraffe View Hot-Reload in your project
 
 * Install the `giraffe-reload` global tool
   * `dotnet tool install -g Giraffe.HotReload.Cli::*`
 * Invoke the `giraffe-reload` tool in watch-mode on your project
   * `giraffe-reload --watch --webhook:http://localhost:5000/update path/to/project.fsproj`
   * If your project runs on another IP or port, change it as appropriate.
-  * The `/update` route is default right now, but can be [configured](#configuration)
+  * The `/update` route is default right now, but can be [configured](#Settings)
   * You can run the tool from your project directory and it'll discover your fsproj as well.
 * open the `Giraffe.HotReload` namespace and use the new `UseGiraffeWithHotReload` extension method on `IApplicationBuilder`. You'll likely want to `#if`def this around the `DEBUG` define, so that you don't allow hot-reloading in production.
 * Use this extension method _instead_ of the normal `UseGiraffe` one. Check the sample project for an example usage.
 * Launch your project as usual, likely via `dotnet run`
 * Make edits to your giraffe handler
 
+
+#### Enabling static content Hot-Reload in your project
+
+* Give your webroot folder and all files a name in your fsproj and tell msbuild it will be watchable
+
+```xml
+  <ItemGroup>
+    <WebRoot Include="$(MSBuildProjectDirectory)/wwwroot/**/*" />
+    <Watch Include="@(WebRoot)" />
+  </ItemGroup>
+```
+
+* Tell msbuild to copy these files on builds in your fsproj
+
+```xml
+    <Content Include="@(WebRoot)">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+```
+
+* Make an msbuild task for copying these files in your fsproj
+
+```xml
+  <Target Name="CopyWebroot">
+      <Copy
+          SourceFiles="@(WebRoot)"
+          DestinationFiles="@(WebRoot->'$(OutDir)\wwwroot\%(RecursiveDir)%(Filename)%(Extension)')"
+      />
+    </Target>
+```
+
+* Teach ASP.NET Core where your webroot is
+
+```fsharp
+  let webroot = "wwwroot"
+
+  WebHostBuilder()
+    (...omitted...)
+      .UseWebRoot(webroot)
+    (...omitted...)
+```
+
+* Start a `dotnet watch` task with this target. Everytime you save, msbuild will now copy this files to the output
+
+```bash
+$ dotnet watch msbuild /t:CopyWebroot
+```
+
+By default this will watch your webroot folder.  If you want to include additional folders, you can add them to `StaticFileProviders` in the [Settings](#Settings).
 
 #### Settings
 
@@ -30,12 +79,15 @@ The current settings that can be configured are listed below.
     WebsocketRefreshRoute : string
     /// The name of the Giraffe HttpHandler member that will be searched for
     WebAppMemberName : string
+    /// Static file providers for anything not under webroot
+    StaticFileProviders : IFileProvider list
   }
     with
       static member Default = {
         UpdateRoute = "/update"
         WebsocketRefreshRoute = "/ws"
         WebAppMemberName = "webApp"
+        StaticFileProviders = []
       }
 ```
 

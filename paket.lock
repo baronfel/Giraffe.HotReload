@@ -175,7 +175,7 @@ NUGET
       Microsoft.Extensions.Options (>= 2.2) - restriction: >= netstandard2.0
       System.Diagnostics.DiagnosticSource (>= 4.5) - restriction: >= netstandard2.0
       System.Reflection.Metadata (>= 1.6) - restriction: >= netstandard2.0
-    Microsoft.AspNetCore.Hosting.Abstractions (2.2) - restriction: || (>= net461) (>= netstandard2.0)
+    Microsoft.AspNetCore.Hosting.Abstractions (2.2)
       Microsoft.AspNetCore.Hosting.Server.Abstractions (>= 2.2) - restriction: >= netstandard2.0
       Microsoft.AspNetCore.Http.Abstractions (>= 2.2) - restriction: >= netstandard2.0
       Microsoft.Extensions.Hosting.Abstractions (>= 2.2) - restriction: >= netstandard2.0
@@ -266,6 +266,12 @@ NUGET
       Microsoft.AspNetCore.Hosting.Abstractions (>= 2.2) - restriction: >= netstandard2.0
       Microsoft.AspNetCore.Server.Kestrel.Transport.Abstractions (>= 2.2) - restriction: >= netstandard2.0
       Microsoft.Extensions.Options (>= 2.2) - restriction: >= netstandard2.0
+    Microsoft.AspNetCore.StaticFiles (2.2)
+      Microsoft.AspNetCore.Hosting.Abstractions (>= 2.2) - restriction: >= netstandard2.0
+      Microsoft.AspNetCore.Http.Extensions (>= 2.2) - restriction: >= netstandard2.0
+      Microsoft.Extensions.FileProviders.Abstractions (>= 2.2) - restriction: >= netstandard2.0
+      Microsoft.Extensions.Logging.Abstractions (>= 2.2) - restriction: >= netstandard2.0
+      Microsoft.Extensions.WebEncoders (>= 2.2) - restriction: >= netstandard2.0
     Microsoft.AspNetCore.TestHost (2.2)
       Microsoft.AspNetCore.Hosting (>= 2.2) - restriction: >= netstandard2.0
       System.IO.Pipelines (>= 4.5.2) - restriction: >= netstandard2.0

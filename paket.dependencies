@@ -16,6 +16,7 @@ nuget FSharp.Core ~> 4.5
 nuget FSharp.Compiler.Service ~> 25.0
 nuget Dotnet.ProjInfo 0.9
 nuget Microsoft.AspNetCore.WebSockets
+nuget Microsoft.AspNetCore.StaticFiles
 
 # build and test deps
 clitool dotnet-mono 0.5.2

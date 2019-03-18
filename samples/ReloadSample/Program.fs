@@ -8,6 +8,8 @@ open Microsoft.Extensions.Logging
 open Microsoft.Extensions.DependencyInjection
 open Giraffe
 open Giraffe.HotReload
+open System.Net.Http
+open Microsoft.AspNetCore.Http
 
 // ---------------------------------
 // Models
@@ -52,7 +54,7 @@ socket.onerror = function(error) {
                 title []  [ encodedText "ReloadSample" ]
                 link [ _rel  "stylesheet"
                        _type "text/css"
-                       _href "/main.css" ]
+                       _href "/css/main.css" ]
             ]
             body [] (content @ [wsConnection])
         ]
@@ -100,6 +102,7 @@ let errorHandler (ex : Exception) (logger : ILogger) =
 
 let configureApp (app : IApplicationBuilder) =
     let env = app.ApplicationServices.GetService<IHostingEnvironment>()
+    let app = app.UseStaticFiles()
     (match env.IsDevelopment() with
     | true  -> app.UseDeveloperExceptionPage()
     | false -> app.UseGiraffeErrorHandler errorHandler)
@@ -120,13 +123,12 @@ let configureLogging (builder : ILoggingBuilder) =
 
 [<EntryPoint>]
 let main _ =
-    let contentRoot = Directory.GetCurrentDirectory()
-    let webRoot     = Path.Combine(contentRoot, "WebRoot")
+    // let contentRoot = Directory.GetCurrentDirectory()
+    let webroot     = "wwwroot"
     WebHostBuilder()
         .UseKestrel()
-        .UseContentRoot(contentRoot)
         .UseIISIntegration()
-        .UseWebRoot(webRoot)
+        .UseWebRoot(webroot)
         .Configure(Action<IApplicationBuilder> configureApp)
         .ConfigureServices(configureServices)
         .ConfigureLogging(configureLogging)

@@ -1,6 +1,4 @@
 namespace Giraffe.HotReload
-open Microsoft.AspNetCore.Hosting
-
 module rec LiveUpdate =
   open System
   open System.Reflection
@@ -12,6 +10,11 @@ module rec LiveUpdate =
   open FSharp.Compiler.PortaCode.CodeModel
   open FSharp.Compiler.PortaCode.Interpreter
   open FSharp.Control.Tasks.V2.ContextInsensitive
+  open Microsoft.AspNetCore.Hosting
+  open System.Net.WebSockets
+  open System.IO
+  open Microsoft.Extensions.Primitives
+  open Microsoft.Extensions.FileProviders
 
   type Settings = {
     /// The route where the hot reload tool should post.
@@ -20,12 +23,15 @@ module rec LiveUpdate =
     WebsocketRefreshRoute : string
     /// The name of the Giraffe HttpHandler member that will be searched for
     WebAppMemberName : string
+    /// Static file providers for anything not under webroot
+    StaticFileProviders : IFileProvider list
   }
     with
       static member Default = {
         UpdateRoute = "/update"
         WebsocketRefreshRoute = "/ws"
         WebAppMemberName = "webApp"
+        StaticFileProviders = []
       }
 
   let welcomePage: XmlNode =
@@ -206,12 +212,37 @@ module rec LiveUpdate =
   /// A middleware that delegates to GiraffeMiddlware, but updates the middleware when the HttpHandler is updated
   type HotReloadGiraffeMiddleware(next: RequestDelegate,
                                   handler: HttpHandler,
+                                  hostEnv : IHostingEnvironment,
                                   sockets: ResizeArray<System.Net.WebSockets.WebSocket>,
                                   settings : Settings,
                                   loggerFactory: ILoggerFactory) as self =
         let logger = loggerFactory.CreateLogger<HotReloadGiraffeMiddleware>()
         let merge handler = choose [LiveUpdate.updater settings self; handler ]
         let refreshCommand = "refresh" |> System.Text.Encoding.UTF8.GetBytes |> ArraySegment
+        let sendRefreshCommand (socket : WebSocket) = socket.SendAsync(refreshCommand, Net.WebSockets.WebSocketMessageType.Text, true, Threading.CancellationToken.None)
+        let notifyAllSockets sockets =
+          sockets
+          |> Seq.mapi (fun i socket -> task {
+              logger.LogInformation("Notifying websocket {id}", i)
+              do! sendRefreshCommand socket
+            }
+          )
+          |> System.Threading.Tasks.Task.WhenAll
+          |> ignore
+
+        let handleFileChange () =
+          logger.LogDebug("Static content file changed. Sending refresh commands")
+          notifyAllSockets sockets
+
+        let addWatchHandlers (fileProvider : IFileProvider) =
+          let getWatchToken _ = fileProvider.Watch("**.*")
+          ChangeToken.OnChange(Func<_>(getWatchToken), Action(handleFileChange))
+          |> ignore
+
+        let filewatchers = hostEnv.WebRootFileProvider :: settings.StaticFileProviders
+
+        do filewatchers |> List.iter(addWatchHandlers)
+
         let mutable innerMiddleware = Middleware.GiraffeMiddleware(next, merge handler, loggerFactory)
 
         member __.Invoke (ctx: HttpContext) = innerMiddleware.Invoke ctx
@@ -219,14 +250,7 @@ module rec LiveUpdate =
         /// Replace the current giraffe pipeline with a new one based on the provided `HttpHandler`
         member __.Update(newHandler) =
           innerMiddleware <- Middleware.GiraffeMiddleware(next, merge newHandler, loggerFactory)
-          sockets
-          |> Seq.mapi (fun i socket -> task {
-              logger.LogInformation("Notifying websocket {id}", i)
-              do! socket.SendAsync(refreshCommand, Net.WebSockets.WebSocketMessageType.Text, true, Threading.CancellationToken.None)
-            }
-          )
-          |> System.Threading.Tasks.Task.WhenAll
-          |> ignore
+          notifyAllSockets sockets
 
 
 [<AutoOpen>]
@@ -290,5 +314,3 @@ module Extensions =
 
     member this.UseGiraffeWithHotReload(handler: HttpHandler) =
       this.UseGiraffeWithHotReload(handler, LiveUpdate.Settings.Default)
-
-
