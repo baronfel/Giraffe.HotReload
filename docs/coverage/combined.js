@@ -326,12 +326,12 @@ var assemblies = [
     "name": "Giraffe.HotReload",
     "classes": [
       { "name": "FSharp.Compiler.PortaCode.CodeModel", "reportPath": "Giraffe.HotReload_CodeModel.htm", "coveredLines": 0, "uncoveredLines": 6, "coverableLines": 6, "totalLines": 135, "coverageType": "LineCoverage", "methodCoverage": "-", "coveredBranches": 0, "totalBranches": 4, "lineCoverageHistory": [], "branchCoverageHistory": [], "historicCoverages": [] },
-      { "name": "FSharp.Compiler.PortaCode.FromCompilerService", "reportPath": "Giraffe.HotReload_FromCompilerService.htm", "coveredLines": 0, "uncoveredLines": 33, "coverableLines": 33, "totalLines": 366, "coverageType": "LineCoverage", "methodCoverage": "-", "coveredBranches": 0, "totalBranches": 18, "lineCoverageHistory": [], "branchCoverageHistory": [], "historicCoverages": [] },
-      { "name": "FSharp.Compiler.PortaCode.Interpreter", "reportPath": "Giraffe.HotReload_Interpreter.htm", "coveredLines": 45, "uncoveredLines": 429, "coverableLines": 474, "totalLines": 1257, "coverageType": "LineCoverage", "methodCoverage": "-", "coveredBranches": 0, "totalBranches": 409, "lineCoverageHistory": [], "branchCoverageHistory": [], "historicCoverages": [] },
-      { "name": "FSharp.Compiler.PortaCode.ProcessCommandLine", "reportPath": "Giraffe.HotReload_ProcessCommandLine.htm", "coveredLines": 0, "uncoveredLines": 317, "coverableLines": 317, "totalLines": 469, "coverageType": "LineCoverage", "methodCoverage": "-", "coveredBranches": 0, "totalBranches": 194, "lineCoverageHistory": [], "branchCoverageHistory": [], "historicCoverages": [] },
+      { "name": "FSharp.Compiler.PortaCode.FromCompilerService", "reportPath": "Giraffe.HotReload_FromCompilerService.htm", "coveredLines": 0, "uncoveredLines": 33, "coverableLines": 33, "totalLines": 366, "coverageType": "LineCoverage", "methodCoverage": "-", "coveredBranches": 0, "totalBranches": 20, "lineCoverageHistory": [], "branchCoverageHistory": [], "historicCoverages": [] },
+      { "name": "FSharp.Compiler.PortaCode.Interpreter", "reportPath": "Giraffe.HotReload_Interpreter.htm", "coveredLines": 45, "uncoveredLines": 429, "coverableLines": 474, "totalLines": 1257, "coverageType": "LineCoverage", "methodCoverage": "-", "coveredBranches": 0, "totalBranches": 411, "lineCoverageHistory": [], "branchCoverageHistory": [], "historicCoverages": [] },
+      { "name": "FSharp.Compiler.PortaCode.ProcessCommandLine", "reportPath": "Giraffe.HotReload_ProcessCommandLine.htm", "coveredLines": 0, "uncoveredLines": 317, "coverableLines": 317, "totalLines": 469, "coverageType": "LineCoverage", "methodCoverage": "-", "coveredBranches": 0, "totalBranches": 217, "lineCoverageHistory": [], "branchCoverageHistory": [], "historicCoverages": [] },
       { "name": "FSharpDaemon.ProjectCracker", "reportPath": "Giraffe.HotReload_ProjectCracker.htm", "coveredLines": 0, "uncoveredLines": 155, "coverableLines": 155, "totalLines": 480, "coverageType": "LineCoverage", "methodCoverage": "-", "coveredBranches": 0, "totalBranches": 50, "lineCoverageHistory": [], "branchCoverageHistory": [], "historicCoverages": [] },
-      { "name": "Giraffe.HotReload.Extensions", "reportPath": "Giraffe.HotReload_Extensions.htm", "coveredLines": 21, "uncoveredLines": 12, "coverableLines": 33, "totalLines": 294, "coverageType": "LineCoverage", "methodCoverage": "-", "coveredBranches": 1, "totalBranches": 6, "lineCoverageHistory": [], "branchCoverageHistory": [], "historicCoverages": [] },
-      { "name": "Giraffe.HotReload.LiveUpdate", "reportPath": "Giraffe.HotReload_LiveUpdate.htm", "coveredLines": 11, "uncoveredLines": 117, "coverableLines": 128, "totalLines": 294, "coverageType": "LineCoverage", "methodCoverage": "-", "coveredBranches": 0, "totalBranches": 51, "lineCoverageHistory": [], "branchCoverageHistory": [], "historicCoverages": [] },
+      { "name": "Giraffe.HotReload.Extensions", "reportPath": "Giraffe.HotReload_Extensions.htm", "coveredLines": 21, "uncoveredLines": 12, "coverableLines": 33, "totalLines": 316, "coverageType": "LineCoverage", "methodCoverage": "-", "coveredBranches": 1, "totalBranches": 6, "lineCoverageHistory": [], "branchCoverageHistory": [], "historicCoverages": [] },
+      { "name": "Giraffe.HotReload.LiveUpdate", "reportPath": "Giraffe.HotReload_LiveUpdate.htm", "coveredLines": 14, "uncoveredLines": 114, "coverableLines": 128, "totalLines": 316, "coverageType": "LineCoverage", "methodCoverage": "-", "coveredBranches": 0, "totalBranches": 51, "lineCoverageHistory": [], "branchCoverageHistory": [], "historicCoverages": [] },
       { "name": "System.AssemblyVersionInformation", "reportPath": "Giraffe.HotReload_AssemblyVersionInformation.htm", "coveredLines": 0, "uncoveredLines": 0, "coverableLines": 0, "totalLines": 0, "coverageType": "MethodCoverage", "methodCoverage": "-", "coveredBranches": 0, "totalBranches": 0, "lineCoverageHistory": [], "branchCoverageHistory": [], "historicCoverages": [] },
     ]},
 ];
@@ -346,17 +346,17 @@ var riskHotspotMetrics = [
 
 var riskHotspots = [
   {
-    "assembly": "Giraffe.HotReload", "class": "FSharp.Compiler.PortaCode.ProcessCommandLine", "reportPath": "Giraffe.HotReload_ProcessCommandLine.htm", "methodName": "System.Int32 FSharp.Compiler.PortaCode.ProcessCommandLine/fsharpArgs@33::GenerateNext(System.Collections.Generic.IEnumerable`1<System.String>&)", "methodShortName": "GenerateNext(...)", "fileIndex": 0, "line": 33,
+    "assembly": "Giraffe.HotReload", "class": "FSharp.Compiler.PortaCode.ProcessCommandLine", "reportPath": "Giraffe.HotReload_ProcessCommandLine.htm", "methodName": "System.Int32 FSharp.Compiler.PortaCode.ProcessCommandLine::ProcessCommandLine(System.String[])", "methodShortName": "ProcessCommandLine(...)", "fileIndex": 0, "line": 21,
     "metrics": [
-      { "value": 29, "exceeded": false },
+      { "value": 20, "exceeded": false },
       { "value": 262144, "exceeded": true },
       { "value": 0, "exceeded": false },
     ]},
   {
-    "assembly": "Giraffe.HotReload", "class": "FSharp.Compiler.PortaCode.ProcessCommandLine", "reportPath": "Giraffe.HotReload_ProcessCommandLine.htm", "methodName": "System.Int32 FSharp.Compiler.PortaCode.ProcessCommandLine::ProcessCommandLine(System.String[])", "methodShortName": "ProcessCommandLine(...)", "fileIndex": 0, "line": 21,
+    "assembly": "Giraffe.HotReload", "class": "FSharp.Compiler.PortaCode.ProcessCommandLine", "reportPath": "Giraffe.HotReload_ProcessCommandLine.htm", "methodName": "System.Int32 FSharp.Compiler.PortaCode.ProcessCommandLine/fsharpArgs@33::GenerateNext(System.Collections.Generic.IEnumerable`1<System.String>&)", "methodShortName": "GenerateNext(...)", "fileIndex": 0, "line": 33,
     "metrics": [
-      { "value": 20, "exceeded": false },
-      { "value": 131072, "exceeded": true },
+      { "value": 29, "exceeded": false },
+      { "value": 262144, "exceeded": true },
       { "value": 0, "exceeded": false },
     ]},
   {
@@ -402,7 +402,7 @@ var riskHotspots = [
       { "value": 0, "exceeded": false },
     ]},
   {
-    "assembly": "Giraffe.HotReload", "class": "Giraffe.HotReload.LiveUpdate", "reportPath": "Giraffe.HotReload_LiveUpdate.htm", "methodName": "Microsoft.FSharp.Core.FSharpResult`2<Microsoft.FSharp.Core.FSharpFunc`2<Microsoft.FSharp.Core.FSharpFunc`2<Microsoft.AspNetCore.Http.HttpContext,System.Threading.Tasks.Task`1<Microsoft.FSharp.Core.FSharpOption`1<Microsoft.AspNetCore.Http.HttpContext>>>,Microsoft.FSharp.Core.FSharpFunc`2<Microsoft.AspNetCore.Http.HttpContext,System.Threading.Tasks.Task`1<Microsoft.FSharp.Core.FSharpOption`1<Microsoft.AspNetCore.Http.HttpContext>>>>,System.String> Giraffe.HotReload.LiveUpdate/tryResolveAsFunction@124-1::Invoke(System.Tuple`2<FSharp.Compiler.PortaCode.CodeModel/DMemberDef,FSharp.Compiler.PortaCode.CodeModel/DExpr>)", "methodShortName": "Invoke(...)", "fileIndex": 0, "line": 125,
+    "assembly": "Giraffe.HotReload", "class": "Giraffe.HotReload.LiveUpdate", "reportPath": "Giraffe.HotReload_LiveUpdate.htm", "methodName": "Microsoft.FSharp.Core.FSharpResult`2<Microsoft.FSharp.Core.FSharpFunc`2<Microsoft.FSharp.Core.FSharpFunc`2<Microsoft.AspNetCore.Http.HttpContext,System.Threading.Tasks.Task`1<Microsoft.FSharp.Core.FSharpOption`1<Microsoft.AspNetCore.Http.HttpContext>>>,Microsoft.FSharp.Core.FSharpFunc`2<Microsoft.AspNetCore.Http.HttpContext,System.Threading.Tasks.Task`1<Microsoft.FSharp.Core.FSharpOption`1<Microsoft.AspNetCore.Http.HttpContext>>>>,System.String> Giraffe.HotReload.LiveUpdate/tryResolveAsFunction@130-1::Invoke(System.Tuple`2<FSharp.Compiler.PortaCode.CodeModel/DMemberDef,FSharp.Compiler.PortaCode.CodeModel/DExpr>)", "methodShortName": "Invoke(...)", "fileIndex": 0, "line": 131,
     "metrics": [
       { "value": 10, "exceeded": false },
       { "value": 320, "exceeded": true },

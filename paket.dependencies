@@ -1,4 +1,4 @@
-version 5.196.2
+#version 5.196.2 #set this if you need to pin a version
 source https://api.nuget.org/v3/index.json
 storage: none
 

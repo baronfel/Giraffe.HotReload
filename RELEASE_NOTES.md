@@ -1,3 +1,6 @@
+#### 0.4.0 - 2019-04-25
+* Add hot reload of static content in the webroot
+
 #### 0.3.0 - 2019-02-25
 * Add in a Settings type to configure where the handlers are mounted and what the desired member name will be (thanks @theangrybyrd!)
 

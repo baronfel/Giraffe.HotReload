@@ -323,7 +323,7 @@ Target.create "Release" ignore
   ==> "DotnetTest"
   ==> "GenerateCoverageReport"
   ==> "DotnetPack"
-  ==> "Publish"
+//  ==> "Publish"
   ==> "GitRelease"
   ==> "GitHubRelease"
   ==> "Release"
