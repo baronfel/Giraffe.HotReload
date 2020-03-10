@@ -3,7 +3,7 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <DefineConstants>$(DefineConstants);NETSTANDARD2_0</DefineConstants> <!-- need this to make dotnet.projinfo 0.9 compile with result-types correctly. -->
-    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <TargetFrameworks>netcoreapp2.1;netcoreapp3.1</TargetFrameworks>
     <PackAsTool>true</PackAsTool>
     <ToolCommandName>giraffe-reload</ToolCommandName>
   </PropertyGroup>
